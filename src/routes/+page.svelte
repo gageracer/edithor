@@ -6,6 +6,7 @@
 	import ExportOptions from "$lib/components/ExportOptions.svelte";
 	import { chunkText } from "$lib/utils/chunker";
 	import type { Chunk, ChunkStats } from "$lib/types";
+	import { fade } from "svelte/transition";
 
 	let inputText = $state("");
 	let maxCharacters = $state(500);

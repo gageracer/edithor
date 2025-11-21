@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "$lib/components/ui/card";
+	import { Card, CardContent, CardHeader, CardTitle } from "$lib/components/ui/card";
 	import type { Chunk, ChunkStats } from "$lib/types";
+	import { flip } from "svelte/animate";
+	import { fade, scale } from "svelte/transition";
 
 	interface Props {
 		chunks?: Chunk[];
@@ -41,23 +43,29 @@
 		<!-- Chunks List -->
 		<div class="space-y-3 max-h-[600px] overflow-y-auto pr-2">
 			{#each chunks as chunk (chunk.id)}
-				<Card>
-					<CardHeader class="pb-3">
-						<div class="flex items-center justify-between">
-							<CardTitle class="text-base">Chunk {chunk.id}</CardTitle>
-							<div class="flex gap-3 text-xs text-muted-foreground">
-								<span>{chunk.characterCount} chars</span>
-								<span>•</span>
-								<span>{chunk.sentenceCount} {chunk.sentenceCount === 1 ? 'sentence' : 'sentences'}</span>
+				<div
+					animate:flip={{ duration: 300 }}
+					in:scale={{ duration: 200, start: 0.96, opacity: 0 }}
+					out:fade={{ duration: 150 }}
+				>
+					<Card>
+						<CardHeader class="pb-3">
+							<div class="flex items-center justify-between">
+								<CardTitle class="text-base">Chunk {chunk.id}</CardTitle>
+								<div class="flex gap-3 text-xs text-muted-foreground">
+									<span>{chunk.characterCount} chars</span>
+									<span>•</span>
+									<span>{chunk.sentenceCount} {chunk.sentenceCount === 1 ? 'sentence' : 'sentences'}</span>
+								</div>
 							</div>
-						</div>
-					</CardHeader>
-					<CardContent>
-						<div class="rounded-md bg-muted/50 p-3">
-							<p class="text-sm leading-relaxed whitespace-pre-wrap">{chunk.content}</p>
-						</div>
-					</CardContent>
-				</Card>
+						</CardHeader>
+						<CardContent>
+							<div class="rounded-md bg-muted/50 p-3">
+								<p class="text-sm leading-relaxed whitespace-pre-wrap">{chunk.content}</p>
+							</div>
+						</CardContent>
+					</Card>
+				</div>
 			{/each}
 		</div>
 	{:else}
