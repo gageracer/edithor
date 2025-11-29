@@ -14,9 +14,35 @@
 	import { chunkText } from '$lib/utils/chunker';
 	import type { Chunk, ChunkStats } from '$lib/types';
 
+	interface MarkerPair {
+		id: number;
+		startMarker: string;
+		endMarker: string;
+		patternTemplate: string; // User-friendly pattern with %n or %d for numbers
+		pattern: RegExp;
+		format: 'double-star' | 'plain' | 'generic';
+	}
+
 	let inputText = $state('');
-	let startMarker = $state('**Segment 1:**');
-	let endMarker = $state('---');
+	let markerPairs = $state<MarkerPair[]>([
+		{
+			id: 1,
+			startMarker: '**Segment 1:**',
+			endMarker: '',
+			patternTemplate: '**Segment %n:** (%n characters)',
+			pattern: /\*\*Segment\s+\d+:\*\*\s*(\(\d+\s*characters\)\s*)?/gi,
+			format: 'double-star'
+		},
+		{
+			id: 2,
+			startMarker: 'Segment 1:',
+			endMarker: '',
+			patternTemplate: 'Segment %n: (%n characters)',
+			pattern: /(?<!\*\*)Segment\s+\d+:\s*(\(\d+\s+characters\))?/gi,
+			format: 'plain'
+		}
+	]);
+	let nextMarkerId = $state(3);
 	let targetCharLimit = $state(500);
 	let segments = $state<Chunk[]>([]);
 	let stats = $state<ChunkStats | undefined>(undefined);
@@ -28,7 +54,83 @@
 		return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 	}
 
-	function extractSegmentedSection(text: string): {
+	function addMarkerPair() {
+		markerPairs.push({
+			id: nextMarkerId,
+			startMarker: '',
+			endMarker: '',
+			patternTemplate: '**Segment %n:** (%n characters)',
+			pattern: /\*\*Segment\s+\d+:\*\*\s*(\(\d+\s*characters\)\s*)?/gi,
+			format: 'double-star'
+		});
+		nextMarkerId++;
+	}
+
+	function removeMarkerPair(id: number) {
+		if (markerPairs.length > 1) {
+			markerPairs = markerPairs.filter((pair) => pair.id !== id);
+		}
+	}
+
+	// Convert pattern template with %n/%d placeholders to regex
+	function templateToRegex(template: string): RegExp {
+		// First, replace %n or %d with a placeholder marker before escaping
+		let pattern = template.replace(/%[nd]/g, '###NUMBER###');
+
+		// Check if template has character count pattern
+		const hasCharCount = pattern.includes('(###NUMBER### characters)');
+
+		// If template has character count, remove it temporarily
+		if (hasCharCount) {
+			pattern = pattern.replace(/\s*\(###NUMBER### characters\)\s*/, '');
+		}
+
+		// Check if this is a plain "Segment" pattern (without **)
+		const isPlainSegmentPattern = pattern.includes('Segment') && !pattern.includes('**');
+
+		// Escape special regex characters
+		pattern = escapeRegex(pattern);
+
+		// Add negative lookbehind for plain Segment patterns to avoid matching inside **Segment**
+		if (isPlainSegmentPattern) {
+			pattern = '(?<!\\*\\*)' + pattern;
+		}
+
+		// Replace number placeholders with regex pattern for one or more digits
+		pattern = pattern.replace(/###NUMBER###/g, '\\d+');
+
+		// If there was a character count in the template, add it as optional with flexible whitespace
+		if (hasCharCount) {
+			pattern = pattern + '\\s*(\\(\\d+\\s+characters\\))?';
+		}
+
+		return new RegExp(pattern, 'gi');
+	}
+
+	function updateMarkerPattern(id: number, patternTemplate: string) {
+		const pair = markerPairs.find((p) => p.id === id);
+		if (!pair) return;
+
+		pair.patternTemplate = patternTemplate;
+
+		// Detect format based on pattern template
+		if (patternTemplate.includes('**Segment')) {
+			pair.format = 'double-star';
+		} else if (patternTemplate.match(/Segment\s+%[nd]/)) {
+			pair.format = 'plain';
+		} else {
+			pair.format = 'generic';
+		}
+
+		// Generate regex from template
+		pair.pattern = templateToRegex(patternTemplate);
+	}
+
+	function extractSegmentedSection(
+		text: string,
+		startMarker: string,
+		sectionEndMarker: string
+	): {
 		before: string;
 		segmented: string;
 		after: string;
@@ -43,43 +145,135 @@
 
 		const startIndex = startMatch.index!;
 
-		// Find the end marker
-		const endPattern = escapeRegex(endMarker);
-		const endMatch = text.substring(startIndex).match(new RegExp(endPattern, 'i'));
+		// Only look for section end marker if it's specified and meaningful
+		// Don't use \n as section delimiter - that's for per-segment delimiting
+		if (sectionEndMarker && sectionEndMarker.trim() !== '' && sectionEndMarker !== '\\n') {
+			// Find the section end marker
+			const endPattern = escapeRegex(sectionEndMarker);
+			const endMatch = text.substring(startIndex).match(new RegExp(endPattern, 'i'));
 
-		if (!endMatch) {
-			// No end marker found, take everything after start
-			return {
-				before: text.substring(0, startIndex),
-				segmented: text.substring(startIndex),
-				after: ''
-			};
+			if (endMatch) {
+				const endIndex = startIndex + endMatch.index!;
+				return {
+					before: text.substring(0, startIndex),
+					segmented: text.substring(startIndex, endIndex),
+					after: text.substring(endIndex)
+				};
+			}
 		}
 
-		const endIndex = startIndex + endMatch.index!;
-
+		// No meaningful section end marker, take everything after start
 		return {
 			before: text.substring(0, startIndex),
-			segmented: text.substring(startIndex, endIndex),
-			after: text.substring(endIndex)
+			segmented: text.substring(startIndex),
+			after: ''
 		};
 	}
 
-	function extractSegmentContent(segmentedSection: string): string[] {
-		// Pattern: **Segment N:** (XXX characters)
-		// Captures the segment marker and splits content
-		const segmentPattern = /\*\*Segment\s+\d+:\*\*\s*\(\d+\s*characters\)\s*/gi;
+	function extractSegmentContentUnified(
+		segmentedSection: string,
+		patterns: RegExp[],
+		endMarker: string
+	): { segments: string[]; trailingContent: string } {
+		const segments: string[] = [];
 
-		// Split by segment markers
-		const parts = segmentedSection.split(segmentPattern);
+		// Find all marker matches from ALL patterns with their positions
+		const markers: Array<{ index: number; match: string; patternIndex: number }> = [];
 
-		// Remove empty first part if text starts with marker
-		if (parts[0].trim() === '') {
-			parts.shift();
+		patterns.forEach((pattern, patternIndex) => {
+			let match;
+			const globalPattern = new RegExp(pattern.source, 'gi');
+
+			while ((match = globalPattern.exec(segmentedSection)) !== null) {
+				markers.push({
+					index: match.index,
+					match: match[0],
+					patternIndex
+				});
+			}
+		});
+
+		// If no markers found, return empty
+		if (markers.length === 0) {
+			return { segments: [], trailingContent: '' };
 		}
 
-		// Clean up each segment - remove leading/trailing whitespace
-		return parts.map((part) => part.trim()).filter((part) => part.length > 0);
+		// Sort markers by position (so we process them in document order)
+		markers.sort((a, b) => a.index - b.index);
+
+		// Determine if we should use end marker or next segment marker
+		const useEndMarker = endMarker && endMarker.trim() !== '';
+
+		// Extract content from each marker to its end marker or next segment
+		for (let i = 0; i < markers.length; i++) {
+			const currentMarker = markers[i];
+			const nextMarker = markers[i + 1];
+
+			// Start after the current marker
+			const contentStart = currentMarker.index + currentMarker.match.length;
+
+			let content: string;
+
+			if (useEndMarker) {
+				// Use the specified end marker
+				let endPattern: RegExp;
+				if (endMarker === '\\n') {
+					endPattern = /\n\n/; // Double newline (blank line)
+				} else {
+					endPattern = new RegExp(escapeRegex(endMarker), 'i');
+				}
+
+				// Find the end marker after this start marker
+				const remainingText = segmentedSection.substring(contentStart);
+				const endMatch = remainingText.match(endPattern);
+
+				if (endMatch) {
+					// Extract content up to the end marker
+					content = remainingText.substring(0, endMatch.index).trim();
+				} else {
+					// No end marker found, go to next segment or end of text
+					const contentEnd = nextMarker ? nextMarker.index : segmentedSection.length;
+					content = segmentedSection.substring(contentStart, contentEnd).trim();
+				}
+			} else {
+				// Empty end marker: run until next segment marker
+				const contentEnd = nextMarker ? nextMarker.index : segmentedSection.length;
+				content = segmentedSection.substring(contentStart, contentEnd).trim();
+			}
+
+			if (content.length > 0) {
+				segments.push(content);
+			}
+		}
+
+		// Extract trailing content after the last segment marker
+		const lastMarker = markers[markers.length - 1];
+		const lastContentStart = lastMarker.index + lastMarker.match.length;
+
+		// Find where the last segment content ends
+		let lastSegmentEnd = lastContentStart;
+		if (useEndMarker) {
+			let endPattern: RegExp;
+			if (endMarker === '\\n') {
+				endPattern = /\n\n/; // Double newline (blank line)
+			} else {
+				endPattern = new RegExp(escapeRegex(endMarker), 'i');
+			}
+			const remainingText = segmentedSection.substring(lastContentStart);
+			const endMatch = remainingText.match(endPattern);
+			if (endMatch && endMatch.index !== undefined) {
+				lastSegmentEnd = lastContentStart + endMatch.index + endMatch[0].length;
+			} else {
+				lastSegmentEnd = segmentedSection.length;
+			}
+		} else {
+			lastSegmentEnd = segmentedSection.length;
+		}
+
+		// Everything after the last segment is trailing content
+		const trailingContent = segmentedSection.substring(lastSegmentEnd).trim();
+
+		return { segments, trailingContent };
 	}
 
 	function refactorSegments() {
@@ -88,34 +282,84 @@
 			return;
 		}
 
-		if (!startMarker.trim()) {
-			alert('Please specify a start marker.');
+		// Validate that at least one marker pair has values
+		const validPairs = markerPairs.filter((pair) => pair.startMarker.trim());
+		if (validPairs.length === 0) {
+			alert('Please specify at least one start marker.');
 			return;
 		}
 
 		try {
-			// Extract the section between start and end markers
-			const { before, segmented, after } = extractSegmentedSection(inputText);
+			// DIAGNOSTIC: Log patterns being used
+			console.log('🔍 Refactoring with patterns:');
+			validPairs.forEach((pair, i) => {
+				console.log(`  Pattern ${i + 1} [${pair.format}]:`, pair.pattern);
+				console.log(`    Template: "${pair.patternTemplate}"`);
+			});
+
+			// Use the first valid marker pair to find the segmented section boundaries
+			const firstPair = validPairs[0];
+			const { before, segmented, after } = extractSegmentedSection(
+				inputText,
+				firstPair.startMarker,
+				firstPair.endMarker
+			);
 
 			if (!segmented) {
-				alert('Could not find the start marker in the text.');
+				alert('No segments found. Check your marker formats.');
 				return;
 			}
 
+			// Store before/after content
 			beforeContent = before;
 			afterContent = after;
 
-			// Extract individual segment contents
-			const segmentContents = extractSegmentContent(segmented);
+			// Collect all patterns from valid pairs
+			const allPatterns = validPairs.map((pair) => pair.pattern);
 
-			if (segmentContents.length === 0) {
-				alert('No segments found. Check your start marker format.');
+			// DIAGNOSTIC: Test patterns on sample text
+			const sampleBold = '**Segment 1:** (250 characters)';
+			const samplePlain = 'Segment 1: (250 characters)';
+			console.log('🧪 Pattern test:');
+			allPatterns.forEach((pattern, i) => {
+				console.log(`  Pattern ${i + 1}:`);
+				console.log(`    Matches "${sampleBold}": ${pattern.test(sampleBold)}`);
+				pattern.lastIndex = 0; // Reset regex
+				console.log(`    Matches "${samplePlain}": ${pattern.test(samplePlain)}`);
+				pattern.lastIndex = 0; // Reset regex
+			});
+
+			// Use end marker from first valid pair (they should all be the same)
+			const endMarker = firstPair.endMarker;
+
+			// Extract segments using unified approach (handles all patterns together)
+			const { segments: allSegmentContents, trailingContent } = extractSegmentContentUnified(
+				segmented,
+				allPatterns,
+				endMarker
+			);
+
+			// DIAGNOSTIC: Log extraction results
+			console.log(`📊 Extracted ${allSegmentContents.length} segments`);
+			if (trailingContent) {
+				console.log(`📄 Trailing content: ${trailingContent.length} characters`);
+			}
+
+			if (allSegmentContents.length === 0) {
+				console.error('❌ No segments extracted!');
+				alert('No segments found. Check your marker formats.');
 				return;
 			}
 
+			console.log(`✅ Successfully extracted ${allSegmentContents.length} segments`);
+
+			// Append trailing content to afterContent
+			if (trailingContent) {
+				afterContent = after + '\n\n' + trailingContent;
+			}
+
 			// Combine all segment content into one continuous text
-			// This prevents tiny fragments when individual segments are re-chunked separately
-			const combinedContent = segmentContents.join(' ');
+			const combinedContent = allSegmentContents.join(' ');
 
 			// Re-chunk the entire combined content using the main chunking algorithm
 			const result = chunkText(combinedContent, { maxCharacters: targetCharLimit });
@@ -170,8 +414,19 @@
 	function exportAsText(): string {
 		let output = beforeContent;
 
+		// Determine format from the first valid marker pair
+		const formatPair = markerPairs.find((p) => p.startMarker.trim());
+		const format = formatPair?.format || 'double-star';
+
 		segments.forEach((segment) => {
-			output += `**Segment ${segment.id}:** (${segment.characterCount} characters)\n`;
+			// Format the segment marker based on detected format
+			if (format === 'double-star') {
+				output += `**Segment ${segment.id}:** (${segment.characterCount} characters)\n`;
+			} else if (format === 'plain') {
+				output += `Segment ${segment.id}: (${segment.characterCount} characters)\n`;
+			} else {
+				output += `Segment ${segment.id}:\n`;
+			}
 			output += segment.content + '\n\n';
 		});
 
@@ -204,7 +459,9 @@
 			});
 	}
 
-	let canProcess = $derived(inputText.trim().length > 0 && startMarker.trim().length > 0);
+	let canProcess = $derived(
+		inputText.trim().length > 0 && markerPairs.some((pair) => pair.startMarker.trim().length > 0)
+	);
 </script>
 
 <div class="space-y-8">
@@ -230,43 +487,91 @@
 		<CardContent class="space-y-6">
 			<!-- Marker Configuration -->
 			<div class="space-y-4">
-				<div class="space-y-2">
-					<Label for="start-marker">Start Marker</Label>
-					<Input
-						id="start-marker"
-						type="text"
-						bind:value={startMarker}
-						placeholder="**Segment 1:**"
-					/>
+				<div class="space-y-2 mb-4">
+					<div class="flex items-center justify-between">
+						<Label>Segment Marker Patterns</Label>
+						<Button onclick={addMarkerPair} variant="outline" size="sm">+ Add Another Format</Button>
+					</div>
 					<p class="text-xs text-muted-foreground">
-						Text before this marker will be preserved as-is (e.g., story title, metadata)
+						Define how segments are marked in your text. Use <code class="px-1 py-0.5 bg-muted rounded">%n</code> or <code class="px-1 py-0.5 bg-muted rounded">%d</code> in patterns to match any number (e.g., Segment 1, Segment 22, Segment 100).
+					</p>
+					<p class="text-xs text-emerald-600 dark:text-emerald-500">
+						✅ Both formats work together! Plain pattern automatically ignores bold markers (uses negative lookbehind). Safe for mixed documents.
 					</p>
 				</div>
 
-				<div class="space-y-2">
-					<Label for="end-marker">End Marker</Label>
-					<Input id="end-marker" type="text" bind:value={endMarker} placeholder="---" />
-					<p class="text-xs text-muted-foreground">
-						Text after this marker will be preserved as-is (e.g., storyboard, metadata). Leave empty
-						to process until end of file.
-					</p>
-				</div>
+				{#each markerPairs as pair, index (pair.id)}
+					<div class="space-y-3 p-4 border rounded-lg">
+						<div class="flex items-center justify-between">
+							<span class="text-sm font-medium">Format {index + 1}</span>
+							{#if markerPairs.length > 1}
+								<Button
+									onclick={() => removeMarkerPair(pair.id)}
+									variant="ghost"
+									size="sm"
+									class="h-6 w-6 p-0"
+								>
+									×
+								</Button>
+							{/if}
+						</div>
+
+						<div class="space-y-2">
+							<Label>Start Marker Example</Label>
+							<Input
+								id="start-marker-{pair.id}"
+								type="text"
+								bind:value={pair.startMarker}
+								placeholder="**Segment 1:** or Segment 1:"
+								class="mb-2"
+							/>
+							<p class="text-xs text-muted-foreground">
+								Example of one marker from your text (for reference only)
+							</p>
+							<div class="text-xs text-muted-foreground font-medium mt-3">
+								<Label>Pattern Template:</Label>
+							</div>
+							<Input
+								id="pattern-template-{pair.id}"
+								type="text"
+								bind:value={pair.patternTemplate}
+								onchange={() => updateMarkerPattern(pair.id, pair.patternTemplate)}
+								placeholder="**Segment %n:** (%n characters)"
+								class="font-mono text-sm"
+							/>
+							<p class="text-xs text-muted-foreground">
+								Use <code class="px-1 py-0.5 bg-muted rounded">%n</code> or <code class="px-1 py-0.5 bg-muted rounded">%d</code> as placeholders for any number. Character count is automatically optional. Be specific to avoid matching unintended text.
+							</p>
+						</div>
+
+						<div class="space-y-2">
+							<Label>End Marker</Label>
+							<Input
+								id="end-marker-{pair.id}"
+								type="text"
+								bind:value={pair.endMarker}
+								placeholder="--- or next segment start"
+							/>
+							<p class="text-xs text-muted-foreground">
+								Per-segment delimiter: Use <code class="px-1 py-0.5 bg-muted rounded">\n</code> for blank line between segments. Leave empty to run segments until next marker. Content after last segment is preserved.
+							</p>
+						</div>
+					</div>
+				{/each}
 			</div>
 
 			<!-- Character Limit -->
 			<div class="space-y-2">
 				<div class="flex items-center justify-between">
-					<Label for="char-limit">Target Character Limit per Segment</Label>
-					<span class="text-sm font-medium">{targetCharLimit}</span>
+					<Label>Target Character Limit per Segment</Label>
 				</div>
-				<input
+				<Input
 					id="char-limit"
-					type="range"
-					min="50"
-					max="2000"
-					step="10"
+					type="number"
+					min={50}
+					max={2000}
 					bind:value={targetCharLimit}
-					class="w-full"
+					class="max-w-[200px]"
 				/>
 				<p class="text-xs text-muted-foreground">
 					Segments will be adjusted to match this limit while preserving sentence boundaries
@@ -326,7 +631,7 @@
 
 					<!-- Segments Preview -->
 					<div class="space-y-4 max-h-[600px] overflow-y-auto">
-						{#each segments as segment}
+						{#each segments as segment, index (index)}
 							<div class="rounded-lg border bg-card p-4">
 								<div class="mb-2 flex items-center justify-between">
 									<div class="font-semibold">Segment {segment.id}</div>
