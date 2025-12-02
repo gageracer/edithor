@@ -1,0 +1,29 @@
+### Voice Script Segments
+
+**Segment 1:** (245 characters)
+Welcome to our platform! This is the first segment of our voice script.
+It demonstrates how the chunking system works with visual highlights.
+Each segment should be clearly marked and highlighted in blue when detected.
+
+**Segment 2:** (198 characters)
+This is the second segment. Notice how each segment marker follows the
+pattern defined in the filter panel. The system uses regex to find and
+highlight these markers automatically.
+
+**Segment 3:** (312 characters)
+The third segment shows how longer content is handled. The highlighting
+should span the entire marker text including the asterisks, segment number,
+and character count. This helps you visually identify where each segment
+begins in your document for better organization.
+
+**Segment 4:** (156 characters)
+Short segments work too! The highlighting system is flexible and adapts
+to content of any length while maintaining consistent visual feedback.
+
+**Segment 5:** (287 characters)
+This fifth segment adds more test content to verify the highlighting
+continues to work correctly with multiple segments. The blue background
+and left border should be consistent across all markers, making it easy
+to scan through your document quickly.
+
+### Storyboard Images
