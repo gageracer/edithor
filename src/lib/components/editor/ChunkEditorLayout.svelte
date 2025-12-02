@@ -19,11 +19,15 @@
 
 	<!-- Main Content: Split Panel -->
 	<div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4 p-4 overflow-hidden">
-		<!-- Editor Panel (Left) -->
-		<EditorPanel />
+		<!-- Editor Panel (Left) - with its own scroll -->
+		<div class="overflow-auto">
+			<EditorPanel />
+		</div>
 
-		<!-- Filter Panel (Right) -->
-		<FilterPanel />
+		<!-- Filter Panel (Right) - with its own scroll -->
+		<div class="overflow-auto">
+			<FilterPanel />
+		</div>
 	</div>
 
 	<!-- History Tabs (Bottom) -->

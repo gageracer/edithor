@@ -13,12 +13,12 @@
 	}
 </script>
 
-<div class="flex flex-col h-full border rounded-lg bg-card overflow-auto">
-	<CardHeader>
+<div class="flex flex-col h-full border rounded-lg bg-card">
+	<CardHeader class="flex-shrink-0">
 		<CardTitle>Filter Settings</CardTitle>
 	</CardHeader>
 
-	<CardContent class="space-y-6">
+	<CardContent class="space-y-6 overflow-auto flex-1">
 		<!-- Character Limit -->
 		<div class="space-y-2">
 			<Label for="max-chars">Maximum Characters</Label>
