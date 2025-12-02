@@ -78,7 +78,7 @@
 	});
 </script>
 
-<div class="border-t bg-card flex-shrink-0 w-full relative">
+<div class="border-t bg-card flex-shrink-0 w-full relative" data-testid="history-tabs">
 	<!-- Left scroll button -->
 	{#if canScrollLeft}
 		<button
@@ -98,7 +98,7 @@
 	>
 		<div class="flex gap-2 px-4 py-3">
 			{#if ctx.historyStates.length === 0}
-				<p class="text-sm text-muted-foreground py-2">No history yet</p>
+				<p class="text-sm text-muted-foreground py-2" data-testid="no-history">No history yet</p>
 			{:else}
 				{#each ctx.historyStates as state, index (state.id)}
 					<Button
@@ -106,6 +106,7 @@
 						size="sm"
 						class="flex flex-col items-start gap-1 h-auto py-2 px-3 shrink-0"
 						onclick={() => state.id && ctx.loadHistoryItem(state.id)}
+						data-testid="history-tab-{state.id}"
 					>
 						<span class="text-xs font-semibold whitespace-nowrap">
 							{getTabName(state, index)}

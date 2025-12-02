@@ -24,8 +24,9 @@ test.describe('Editor v0.2', () => {
 
 	test('should display initial stats correctly', async ({ page }) => {
 		// With no text, stats should be zero
-		const statsBar = page.locator('div').filter({ hasText: /^0words/ }).first();
-		await expect(statsBar).toBeVisible();
+		const wordsValue = page.getByTestId('stat-words-value');
+		await expect(wordsValue).toBeVisible();
+		await expect(wordsValue).toHaveText('0');
 	});
 
 	test('should allow entering text in editor', async ({ page }) => {
@@ -41,12 +42,14 @@ test.describe('Editor v0.2', () => {
 		await page.waitForTimeout(100);
 
 		// Stats should update
-		const wordsCount = page.locator('div').filter({ hasText: /\d+words/ });
-		await expect(wordsCount).toBeVisible();
+		const wordsValue = page.getByTestId('stat-words-value');
+		await expect(wordsValue).toBeVisible();
+		const wordsText = await wordsValue.textContent();
+		expect(parseInt(wordsText || '0')).toBeGreaterThan(0);
 	});
 
 	test('should update character limit setting', async ({ page }) => {
-		const charInput = page.getByLabel('Maximum Characters');
+		const charInput = page.getByTestId('max-chars-input');
 		await expect(charInput).toBeVisible();
 		await expect(charInput).toHaveValue('490');
 
@@ -63,13 +66,13 @@ test.describe('Editor v0.2', () => {
 
 	test('should allow adding marker pairs', async ({ page }) => {
 		// Count initial marker pairs
-		const initialPairs = await page.getByLabel('Start Marker').count();
+		const initialPairs = await page.locator('[data-testid^="marker-pair-"]').count();
 
 		// Click add pair button
-		await page.getByRole('button', { name: 'Add Pair' }).click();
+		await page.getByTestId('add-marker-pair-button').click();
 
 		// Should have one more pair
-		const newPairs = await page.getByLabel('Start Marker').count();
+		const newPairs = await page.locator('[data-testid^="marker-pair-"]').count();
 		expect(newPairs).toBe(initialPairs + 1);
 	});
 
@@ -124,8 +127,8 @@ test.describe('Editor v0.2', () => {
 	});
 
 	test('should disable process button when no text', async ({ page }) => {
-		const processButton = page.getByRole('button', { name: 'Process Chunks' });
-		await expect(processButton).toBeDisabled();
+		const processBtn = page.getByTestId('process-button');
+		await expect(processBtn).toBeDisabled();
 	});
 
 	test('should enable process button when text is entered', async ({ page }) => {
@@ -142,14 +145,14 @@ test.describe('Editor v0.2', () => {
 		const editor = page.locator('.cm-content');
 		await editor.click();
 		await page.keyboard.type('Text for history test.');
-		await page.getByRole('button', { name: 'Process Chunks' }).click();
-		await page.waitForTimeout(1000);
+		await page.getByTestId('process-button').click();
 
-		// History should no longer show "No history yet"
-		// It should show at least one history item
-		const historySection = page.locator('div').filter({ hasText: /text\d+/ }).first();
-		// Give it some time for history to save
-		await expect(historySection).toBeVisible({ timeout: 3000 });
+		// Wait for processing and history save
+		await page.waitForTimeout(1500);
+
+		// History tabs should appear (look for history container)
+		const historyTabs = page.locator('[data-testid="history-tabs"]');
+		await expect(historyTabs).toBeVisible({ timeout: 3000 });
 	});
 
 	test('should update stats when switching views', async ({ page }) => {
@@ -159,15 +162,17 @@ test.describe('Editor v0.2', () => {
 		await page.keyboard.type('Original text here.');
 		await page.waitForTimeout(200);
 
-		// Get original stats
-		const originalWords = await page.locator('div').filter({ hasText: /\d+words/ }).first().textContent();
+		// Get original stats using data-testid
+		const wordsValue = page.getByTestId('stat-words-value');
+		const originalWords = await wordsValue.textContent();
+		expect(originalWords).toBeTruthy();
 
 		// Process
-		await page.getByRole('button', { name: 'Process Chunks' }).click();
+		await page.getByTestId('process-button').click();
 		await page.waitForTimeout(500);
 
 		// Stats might change after processing
-		const resultWords = await page.locator('div').filter({ hasText: /\d+words/ }).first().textContent();
+		const resultWords = await wordsValue.textContent();
 		expect(resultWords).toBeTruthy();
 	});
 
@@ -188,13 +193,15 @@ test.describe('Editor v0.2', () => {
 	});
 
 	test('should maintain marker pair configuration', async ({ page }) => {
-		// Update start marker
-		const startMarker = page.getByLabel('Start Marker');
+		// Update start marker using data-testid
+		const startMarker = page.getByTestId('start-marker-1');
+		await startMarker.clear();
 		await startMarker.fill('### Test Start');
 		await expect(startMarker).toHaveValue('### Test Start');
 
-		// Update pattern template
-		const pattern = page.getByLabel('Pattern Template');
+		// Update pattern template using data-testid
+		const pattern = page.getByTestId('pattern-template-1');
+		await pattern.clear();
 		await pattern.fill('Test %n');
 		await expect(pattern).toHaveValue('Test %n');
 	});

@@ -13,14 +13,14 @@
 	}
 </script>
 
-<div class="flex flex-col h-full border rounded-lg bg-card">
+<div class="flex flex-col h-full border rounded-lg bg-card" data-testid="filter-panel">
 	<CardHeader class="flex-shrink-0">
 		<CardTitle>Filter Settings</CardTitle>
 	</CardHeader>
 
 	<CardContent class="space-y-6 overflow-auto flex-1">
 		<!-- Character Limit -->
-		<div class="space-y-2">
+		<div class="space-y-2" data-testid="max-chars-section">
 			<Label for="max-chars">Maximum Characters</Label>
 			<Input
 				id="max-chars"
@@ -29,6 +29,7 @@
 				min="50"
 				max="5000"
 				class="w-full"
+				data-testid="max-chars-input"
 			/>
 			<p class="text-xs text-muted-foreground">
 				Target character count per chunk
@@ -36,20 +37,21 @@
 		</div>
 
 		<!-- Marker Pairs -->
-		<div class="space-y-4">
+		<div class="space-y-4" data-testid="marker-pairs-section">
 			<div class="flex items-center justify-between">
 				<Label>Marker Pairs</Label>
 				<Button
 					variant="outline"
 					size="sm"
 					onclick={() => ctx.addMarkerPair()}
+					data-testid="add-marker-pair-button"
 				>
 					Add Pair
 				</Button>
 			</div>
 
 			{#each ctx.markerPairs as pair (pair.id)}
-				<Card>
+				<Card data-testid="marker-pair-{pair.id}">
 					<CardContent class="pt-4 space-y-3">
 						<div class="space-y-2">
 							<Label for="start-{pair.id}">Start Marker</Label>
@@ -58,6 +60,7 @@
 								bind:value={pair.startMarker}
 								placeholder="### Voice Script Segments"
 								class="w-full"
+								data-testid="start-marker-{pair.id}"
 							/>
 						</div>
 
@@ -68,6 +71,7 @@
 								bind:value={pair.endMarker}
 								placeholder="### Storyboard Images"
 								class="w-full"
+								data-testid="end-marker-{pair.id}"
 							/>
 						</div>
 
@@ -78,6 +82,7 @@
 								bind:value={pair.patternTemplate}
 								placeholder="**Segment %n:** (%d characters)"
 								class="w-full"
+								data-testid="pattern-template-{pair.id}"
 								onchange={() => ctx.updateMarkerPair(pair.id, {
 									patternTemplate: pair.patternTemplate
 								})}
@@ -93,6 +98,7 @@
 								size="sm"
 								class="w-full"
 								onclick={() => ctx.removeMarkerPair(pair.id)}
+								data-testid="remove-marker-pair-{pair.id}"
 							>
 								Remove
 							</Button>
@@ -107,6 +113,7 @@
 			class="w-full"
 			onclick={handleProcess}
 			disabled={ctx.isProcessing || !ctx.currentText}
+			data-testid="process-button"
 		>
 			{ctx.isProcessing ? 'Processing...' : 'Process Chunks'}
 		</Button>
