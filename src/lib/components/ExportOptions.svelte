@@ -3,6 +3,7 @@
 	import type { Chunk } from "$lib/types";
 	import JSZip from "jszip";
 	import { exportAsSingleFile, prepareMultipleFiles } from "$lib/utils/chunker";
+	import { toast } from "svelte-sonner";
 
 	interface Props {
 		chunks?: Chunk[];
@@ -70,31 +71,54 @@
 			isDownloading = false;
 		}
 	}
+
+	async function copyToClipboard() {
+		if (chunks.length === 0) return;
+
+		try {
+			const content = exportAsSingleFile(chunks);
+			await navigator.clipboard.writeText(content);
+			toast.success("Copied to clipboard!");
+		} catch (error) {
+			console.error("Error copying to clipboard:", error);
+			toast.error("Failed to copy to clipboard");
+		}
+	}
 </script>
 
-<div class="flex flex-col sm:flex-row gap-2">
-	<Button
-		variant="outline"
-		onclick={downloadSingleFile}
-		disabled={disabled || isDownloading || chunks.length === 0}
-		class="flex-1"
-	>
-		{#if isDownloading}
-			⏳ Downloading...
-		{:else}
-			📄 Download Single File
-		{/if}
-	</Button>
-	<Button
-		variant="outline"
-		onclick={downloadZip}
-		disabled={disabled || isDownloading || chunks.length === 0}
-		class="flex-1"
-	>
-		{#if isDownloading}
-			⏳ Creating ZIP...
-		{:else}
-			📦 Download ZIP
-		{/if}
-	</Button>
+<div class="flex flex-col gap-2">
+	<div class="flex flex-col sm:flex-row gap-2">
+		<Button
+			variant="outline"
+			onclick={copyToClipboard}
+			disabled={disabled || chunks.length === 0}
+			class="flex-1"
+		>
+			📋 Copy to Clipboard
+		</Button>
+		<Button
+			variant="outline"
+			onclick={downloadSingleFile}
+			disabled={disabled || isDownloading || chunks.length === 0}
+			class="flex-1"
+		>
+			{#if isDownloading}
+				⏳ Downloading...
+			{:else}
+				📄 Download Single File
+			{/if}
+		</Button>
+		<Button
+			variant="outline"
+			onclick={downloadZip}
+			disabled={disabled || isDownloading || chunks.length === 0}
+			class="flex-1"
+		>
+			{#if isDownloading}
+				⏳ Creating ZIP...
+			{:else}
+				📦 Download ZIP
+			{/if}
+		</Button>
+	</div>
 </div>

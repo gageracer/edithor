@@ -202,12 +202,12 @@ export function chunkText(text: string, settings: ChunkSettings): ChunkResult {
 }
 
 /**
- * Exports chunks as a single text file with chunk headers
- * Format: "Chunk 1\n[text]\n\nChunk 2\n[text]..."
+ * Exports chunks as a single text file without chunk headers
+ * Format: "[text]\n\n[text]\n\n[text]..."
  */
 export function exportAsSingleFile(chunks: Chunk[]): string {
 	return chunks
-		.map((chunk) => `Chunk ${chunk.id}\n${chunk.content}`)
+		.map((chunk) => chunk.content)
 		.join("\n\n");
 }
 
