@@ -20,7 +20,7 @@
 		<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
 			<div class="rounded-lg border bg-card p-4">
 				<div class="text-2xl font-bold">{stats.totalChunks}</div>
-				<div class="text-xs text-muted-foreground">Total Chunks</div>
+				<div class="text-xs text-muted-foreground">Total Groups</div>
 			</div>
 			<div class="rounded-lg border bg-card p-4">
 				<div class="text-2xl font-bold">{stats.averageChunkSize}</div>
@@ -51,7 +51,7 @@
 					<Card>
 						<CardHeader class="pb-3">
 							<div class="flex items-center justify-between">
-								<CardTitle class="text-base">Chunk {chunk.id}</CardTitle>
+								<CardTitle class="text-base">Group {chunk.id}</CardTitle>
 								<div class="flex gap-3 text-xs text-muted-foreground">
 									<span>{chunk.characterCount} chars</span>
 									<span>•</span>
@@ -74,9 +74,9 @@
 			<div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-muted mb-4">
 				<span class="text-2xl">✂️</span>
 			</div>
-			<h3 class="text-lg font-semibold mb-2">No chunks yet</h3>
+			<h3 class="text-lg font-semibold mb-2">No groups yet</h3>
 			<p class="text-sm text-muted-foreground max-w-sm mx-auto">
-				Enter your text and click "Process Text" to see your chunked results here.
+				Enter your text and click "Process Text" to see your grouped results here.
 			</p>
 		</div>
 	{/if}

@@ -8,6 +8,13 @@
 <Sonner
 	theme={mode.current}
 	class="toaster group"
-	style="--normal-bg: var(--color-popover); --normal-text: var(--color-popover-foreground); --normal-border: var(--color-border);"
+	toastOptions={{
+		classes: {
+			error: 'bg-red-600 text-white border-red-600',
+			success: 'bg-green-600 text-white border-green-600',
+			warning: 'bg-yellow-600 text-white border-yellow-600',
+			info: 'bg-blue-600 text-white border-blue-600',
+		},
+	}}
 	{...restProps}
 />

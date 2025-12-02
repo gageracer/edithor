@@ -5,14 +5,29 @@
 	import { exportAsSingleFile, prepareMultipleFiles } from "$lib/utils/chunker";
 	import { toast } from "svelte-sonner";
 
-	interface Props {
-		chunks?: Chunk[];
-		disabled?: boolean;
+	interface ExtendedChunk extends Chunk {
+		formattedOutput?: string;
 	}
 
-	let { chunks = [], disabled = false }: Props = $props();
+	interface Props {
+		chunks?: ExtendedChunk[];
+		disabled?: boolean;
+		beforeContent?: string;
+		afterContent?: string;
+	}
+
+	let { chunks = [], disabled = false, beforeContent = "", afterContent = "" }: Props = $props();
 
 	let isDownloading = $state(false);
+
+	function getExportContent(): string {
+		// If chunks have formatted output (with segment markers), use that
+		if (chunks.length > 0 && chunks[0].formattedOutput) {
+			return chunks.map(chunk => chunk.formattedOutput).join('\n\n');
+		}
+		// Otherwise use the standard export format
+		return exportAsSingleFile(chunks);
+	}
 
 	function downloadSingleFile() {
 		if (chunks.length === 0) return;
@@ -20,7 +35,8 @@
 		isDownloading = true;
 
 		try {
-			const content = exportAsSingleFile(chunks);
+			const exportedContent = getExportContent();
+			const content = beforeContent + exportedContent + afterContent;
 			const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
 			const url = URL.createObjectURL(blob);
 			const link = document.createElement("a");
@@ -32,7 +48,7 @@
 			URL.revokeObjectURL(url);
 		} catch (error) {
 			console.error("Error downloading file:", error);
-			alert("Failed to download file. Please try again.");
+			toast.error("Failed to download file. Please try again.", { duration: 5000 });
 		} finally {
 			isDownloading = false;
 		}
@@ -45,12 +61,18 @@
 
 		try {
 			const zip = new JSZip();
-			const files = prepareMultipleFiles(chunks);
 
-			// Add each chunk as a separate file to the ZIP
-			files.forEach(({ filename, content }) => {
-				zip.file(filename, content);
-			});
+			// If chunks have formatted output, use that for each file
+			if (chunks.length > 0 && chunks[0].formattedOutput) {
+				chunks.forEach((chunk, index) => {
+					zip.file(`segment-${index + 1}.txt`, chunk.formattedOutput || chunk.content);
+				});
+			} else {
+				const files = prepareMultipleFiles(chunks);
+				files.forEach(({ filename, content }) => {
+					zip.file(filename, content);
+				});
+			}
 
 			// Generate the ZIP file
 			const zipBlob = await zip.generateAsync({ type: "blob" });
@@ -66,7 +88,7 @@
 			URL.revokeObjectURL(url);
 		} catch (error) {
 			console.error("Error creating ZIP:", error);
-			alert("Failed to create ZIP file. Please try again.");
+			toast.error("Failed to create ZIP file. Please try again.", { duration: 5000 });
 		} finally {
 			isDownloading = false;
 		}
@@ -76,12 +98,13 @@
 		if (chunks.length === 0) return;
 
 		try {
-			const content = exportAsSingleFile(chunks);
+			const exportedContent = getExportContent();
+			const content = beforeContent + exportedContent + afterContent;
 			await navigator.clipboard.writeText(content);
 			toast.success("Copied to clipboard!");
 		} catch (error) {
 			console.error("Error copying to clipboard:", error);
-			toast.error("Failed to copy to clipboard");
+			toast.error("Failed to copy to clipboard", { duration: 5000 });
 		}
 	}
 </script>

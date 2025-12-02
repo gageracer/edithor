@@ -22,6 +22,8 @@ export interface ChunkSettings {
 	preserveParagraphs?: boolean;
 	/** Custom delimiters for sentence detection (optional) */
 	customDelimiters?: string[];
+	/** Whether to force split continuous text that exceeds limit (default: false) */
+	fallbackSplit?: boolean;
 }
 
 /**

@@ -15,142 +15,201 @@
 
 ### Voice Script Segments
 
-**Segment 1:** (487 characters)
-I met Sarah on a Tuesday.  Not through an app—at a coffee shop, like people used to.  She was reading a book with a coffee-stained cover, and when our eyes met, she smiled like she'd been expecting me. I know how that sounds.  Like something from a romance novel. But that's exactly how it felt.  I sat down two tables away, pretending to work on my laptop while sneaking glances.  After twenty minutes, she walked over and said, "You're not actually working.  Your screen's been on the same page this whole time."
+**Segment 1:** (377 characters)
+I met Sarah on a Tuesday. Not through an app—at a coffee shop, like people used to. She was reading a book with a coffee-stained cover, and when our eyes met, she smiled like she'd been expecting me. I know how that sounds.  Like something from a romance novel. But that's exactly how it felt. I sat down two tables away, pretending to work on my laptop while sneaking glances.
 
-**Segment 2:** (492 characters)
-I laughed, caught.  "Guilty.  I'm Tom." "Sarah," she said, extending her hand. Her grip was firm, confident. We talked for three hours straight.  The barista had to kick us out at closing.  We exchanged numbers in the parking lot under flickering streetlights. As she drove away, I remember thinking this was the beginning of something important. I had no idea how right I was.  Or how wrong everything would go.  That first night, she texted me: "Thanks for making my Tuesday less ordinary."
+**Segment 2:** (477 characters)
+After twenty minutes, she walked over and said, "You're not actually working.  Your screen's been on the same page this whole time."
 
-**Segment 3:** (498 characters)
-Three months later, I thought I knew her. The way she took her coffee—oat milk, no sugar, extra hot. How she'd trace patterns on my palm while we talked, like she was reading my fortune. The small scar above her left eyebrow from a childhood accident she'd never fully explained. How she'd go quiet sometimes, staring at nothing, lost in thoughts she wouldn't share. I told myself everyone has secrets. Private corners of their past they keep locked away. I didn't push. I should have pushed.
+I laughed, caught. "Guilty.  I'm Tom." "Sarah," she said, extending her hand. Her grip was firm, confident. We talked for three hours straight. The barista had to kick us out at closing. We exchanged numbers in the parking lot under flickering streetlights. As she drove away, I remember thinking this was the beginning of something important.
 
-**Segment 4:** (495 characters)
-She worked as a graphic designer from home, freelance. She had a sister in Seattle she talked to every Sunday.  Her parents died in a car accident when she was nineteen. She loved Thai food, hated horror movies, and had a laugh that could light up the darkest room. She read mys tery novels obsessively—the darker, the better. "I like figuring out the twist before the author reveals it," she told me once. I joked that she was too smart for her own good. She didn't laugh at that.
+**Segment 3:** (424 characters)
+I had no idea how right I was. Or how wrong everything would go. That first night, she texted me: "Thanks for making my Tuesday less ordinary."
 
-**Segment 5:** (489 characters)
-We fell into an easy rhythm. Friday nights at this little Italian place on Maple Street. Saturday mornings at the farmer's market.  Lazy Sundays where we'd stay in bed until noon, talking about everything and nothing. I was falling in love.  No—I had fallen.  Completely. I started looking at rings online.  Imagining a future.  A house with a yard for the dog we'd get. Kids, maybe.  Growing old together. All the clichés that don't feel like clichés when you're living them.
+Three months later, I thought I knew her. The way she took her coffee—oat milk, no sugar, extra hot. How she'd trace patterns on my palm while we talked, like she was reading my fortune. The small scar above her left eyebrow from a childhood accident she'd never fully explained.
 
-**Segment 6:** (497 characters)
-Then came the message. It was a Wednesday. I was at work, in the middle of a meeting I wasn't paying attention to. My phone buzzed.  Sarah: "I need to tell you something. Meet me at our place. 8pm.  This changes everything." Our place—the bench in Bennett Park where we'd had our first kiss. My stomach dropped. This changes everything. That phrase echoed in my head for the rest of the day. Was she pregnant?  Sick? Moving away? Or—and this was the thought I kept pushing down—was she ending it?
+**Segment 4:** (175 characters)
+How she'd go quiet sometimes, staring at nothing, lost in thoughts she wouldn't share. I told myself everyone has secrets. Private corners of their past they keep locked away.
 
-**Segment 7:** (483 characters)
-I arrived at 7:30. Early, like always. The park was quiet, autumn leaves scattered across the path. Our bench sat under an old oak tree, carved with initials from decades of other couples. We'd joked about adding ours but never did. "Too cheesy," Sarah had said. Now I wished we had. Some permanent mark that we'd existed together. I sat down and waited. 8:00 came and went. 8:15.  8:30. I called.  Straight to voicemail. Texted. No response. By 9:00, I was scared.
+**Segment 5:** (468 characters)
+I didn't push. I should have pushed.
 
-**Segment 8:** (491 characters)
-I drove to her apartment. All the lights were off. I had a key—she'd given it to me last month, a small step that had felt enormous. I let myself in, calling her name. Nothing. The apartment felt wrong.  Not ransacked or destroyed, just... empty. Her laptop was gone. Her favorite jacket wasn't on its usual hook. But her plants were still there, her books, her furniture. Mail was piling up on the counter—three days' worth. Where had she been? Where was she now?
+She worked as a graphic designer from home, freelance. She had a sister in Seattle she talked to every Sunday.  Her parents died in a car accident when she was nineteen. She loved Thai food, hated horror movies, and had a laugh that could light up the darkest room. She read mys tery novels obsessively—the darker, the better. __QUOTE4__ she told me once. I joked that she was too smart for her own good. She didn't laugh at that.
 
-**Segment 9:** (496 characters)
-I called her sister, Melissa. "Have you heard from Sarah?" I tried to keep my voice steady.  There was a pause.  "Who is this?" Melissa asked. "Tom.  Her boyfriend. We've been together for three months." Another pause, longer this time. "Sarah doesn't have a boyfriend. And I don't have a sister named Sarah." The line went dead. I stared at my phone, my brain refusing to process what I'd just heard.  That wasn't possible. I'd heard Sarah talk to Melissa every Sunday.
+**Segment 6:** (324 characters)
+We fell into an easy rhythm. Friday nights at this little Italian place on Maple Street. Saturday mornings at the farmer's market.  Lazy Sundays where we'd stay in bed until noon, talking about everything and nothing. I was falling in love. No—I had fallen. Completely. I started looking at rings online. Imagining a future.
 
-**Segment 10:** (488 characters)
-I went to the police the next morning. The detective—a tired-looking man named Marcus Reeves—listened to my story with barely concealed skepticism. "Adults have the right to disappear," he said. "Unless there's evidence of foul play..." "She left me a message," I interrupted. "Said she needed to tell me something. Then vanished." He took down the information, but I could tell he thought I was just another guy who got dumped. "We'll look into it," he said without conviction.
+**Segment 7:** (280 characters)
+A house with a yard for the dog we'd get. Kids, maybe.  Growing old together. All the clichés that don't feel like clichés when you're living them.
 
-**Segment 11:** (497 characters)
-I became obsessed.  I reread every text message, studied every photo we'd taken together. I made timelines, lists of everything she'd told me about herself. Looking for inconsistencies. Looking for clues. I stopped going to work.  Stopped sleeping properly. My friends said I needed to let it go, move on. But they hadn't seen her smile.  Hadn't felt the way she fit perfectly against me when we slept.  Hadn't loved her.  They didn't understand. I couldn't let go until I knew the truth.
+Then came the message. It was a Wednesday. I was at work, in the middle of a meeting I wasn't paying attention to. My phone buzzed.
+
+**Segment 8:** (597 characters)
+Sarah: "I need to tell you something. Meet me at our place. 8pm.  This changes everything." Our place—the bench in Bennett Park where we'd had our first kiss. My stomach dropped. This changes everything. That phrase echoed in my head for the rest of the day. Was she pregnant?  Sick? Moving away? Or—and this was the thought I kept pushing down—was she ending it?
+
+I arrived at 7:30. Early, like always. The park was quiet, autumn leaves scattered across the path. Our bench sat under an old oak tree, carved with initials from decades of other couples. We'd joked about adding ours but never did.
+
+**Segment 9:** (479 characters)
+"Too cheesy," Sarah had said. Now I wished we had. Some permanent mark that we'd existed together. I sat down and waited. 8:00 came and went. 8:15.  8:30. I called.  Straight to voicemail. Texted. No response. By 9:00, I was scared.
+
+I drove to her apartment. All the lights were off. I had a key—she'd given it to me last month, a small step that had felt enormous. I let myself in, calling her name. Nothing. The apartment felt wrong. Not ransacked or destroyed, just... empty.
+
+**Segment 10:** (452 characters)
+Her laptop was gone. Her favorite jacket wasn't on its usual hook. But her plants were still there, her books, her furniture. Mail was piling up on the counter—three days' worth. Where had she been? Where was she now? I called her sister, Melissa. "Have you heard from Sarah?" I tried to keep my voice steady. There was a pause. "Who is this?" Melissa asked. "Tom.  Her boyfriend. We've been together for three months." Another pause, longer this time.
+
+**Segment 11:** (187 characters)
+"Sarah doesn't have a boyfriend. And I don't have a sister named Sarah." The line went dead. I stared at my phone, my brain refusing to process what I'd just heard.  That wasn't possible.
 
 **Segment 12:** (494 characters)
-That's when I noticed it. A photo from two weeks ago—a selfie she'd sent me, making a silly face. I'd looked at it a hundred times.  But this time, I zoomed in on the background. Her apartment window. And in the reflection, barely visible—a silhouette.  A man's figure, standing outside on the street, looking up at her window. I enhanced the image as much as I could.  Couldn't make out features, but something about the posture was wrong.  Predatory. He was watching her.
+I'd heard Sarah talk to Melissa every Sunday.
 
-**Segment 13:** (486 characters)
-I dug deeper, searching online for anything connected to Sarah's name. That's when I found the true crime forum. A user with the handle "BookGirl88"—Sarah's username on her reading app. Posted three months ago, right before we met: "Question about witness protection—if someone testified against a dangerous person, would they get a new identity? What if that person got released from prison? Would the witness be notified?" My blood ran cold.
+I went to the police the next morning. The detective—a tired-looking man named Marcus Reeves—listened to my story with barely concealed skepticism. __QUOTE11__ he said. __QUOTE12__ __QUOTE13__ I interrupted. __QUOTE14__ He took down the information, but I could tell he thought I was just another guy who got dumped. __QUOTE15__ he said without conviction.
 
-**Segment 14:** (499 characters)
-I went down the rabbit hole. Read every post from BookGirl88. She was terrified of someone, asking about changing identities, about disappearing completely. About how to know if you're being followed. The timeline fit perfectly. I searched for trials involving dangerous stalkers from seven years ago. Found dozens.  But one stood out: The State vs. Michael Chen.  Convicted of aggravated stalking, attempted kidnapping, assault.  The victim who testified: Rebecca Chen.  His ex-girlfriend.
+I became obsessed.  I reread every text message, studied every photo we'd taken together.
 
-**Segment 15:** (491 characters)
-Rebecca Chen. Twenty-eight years old. Graphic designer. The article included an old photo—and it was her. It was Sarah. Same eyes, same smile, same scar above her eyebrow. The article said Michael had been obsessed with her, convinced they were meant to be together. He'd broken into her apartment, tracked her every movement, sent threatening letters. She'd gotten a restraining order. He'd violated it repeatedly. Finally, an attempted kidnapping. She'd barely escaped.
+**Segment 13:** (396 characters)
+I made timelines, lists of everything she'd told me about herself. Looking for inconsistencies. Looking for clues. I stopped going to work.  Stopped sleeping properly. My friends said I needed to let it go, move on. But they hadn't seen her smile. Hadn't felt the way she fit perfectly against me when we slept.  Hadn't loved her. They didn't understand. I couldn't let go until I knew the truth.
 
-**Segment 16:** (487 characters)
-Michael Chen was sentenced to seven years. I calculated dates with shaking hands. He would have been released three months ago.  Exactly when Sarah and I met.  Exactly when she started posting on that forum. Exactly when someone started watching her from the street. She'd known he was coming for her. She'd been preparing. And I—I'd been completely oblivious. Falling in love while she was planning her escape. Or maybe...  maybe that's why she'd let me in.
+**Segment 14:** (368 characters)
+That's when I noticed it. A photo from two weeks ago—a selfie she'd sent me, making a silly face. I'd looked at it a hundred times.  But this time, I zoomed in on the background. Her apartment window. And in the reflection, barely visible—a silhouette.  A man's figure, standing outside on the street, looking up at her window. I enhanced the image as much as I could.
 
-**Segment 17:** (498 characters)
-My phone buzzed. Unknown number. My heart stopped. I answered. "Tom." Her voice.  Sarah's voice. I couldn't breathe. "Sarah, where are you?  Are you okay?" "Stop looking," she said quietly. "Please. I'm safe. He found me, but I'm handling it. You were real, all of it was real.  But I can't let you be part of this." "Part of what?" I demanded. "Let me help you. We can go to the police—" "The police can't help me," she interrupted. "He's too smart. Too patient."
+**Segment 15:** (289 characters)
+Couldn't make out features, but something about the posture was wrong.  Predatory. He was watching her.
 
-**Segment 18:** (489 characters)
-"Then let me help," I said desperately. "I love you. We can figure this out together." There was silence. When she spoke again, her voice cracked. "I love you too. That's why you have to let me go. If he knows about you, he'll use you to get to me.  I won't let that happen.  Forget the coffee shop. Forget the bench.  Forget me." "I can't," I whispered. "You have to," she said. And the line went dead.  I tried calling back.  The number was disconnected.
+I dug deeper, searching online for anything connected to Sarah's name. That's when I found the true crime forum. A user with the handle __QUOTE16__—Sarah's username on her reading app.
 
-**Segment 19:** (493 characters)
-I tried to trace the call. Got nowhere. Called Detective Reeves back, told him everything—Rebecca Chen, Michael Chen, the witness testimony, the stalking.  He went quiet. "Stay out of this, Tom," he finally said. "Rebecca is being handled by people who know what they're doing." "What people?  Where is she?" "I can't tell you that. But she's safe. And you need to let it go.  For your safety and hers." He hung up before I could argue. I was shut out completely.
+**Segment 16:** (414 characters)
+Posted three months ago, right before we met: "Question about witness protection—if someone testified against a dangerous person, would they get a new identity? What if that person got released from prison? Would the witness be notified?" My blood ran cold. I went down the rabbit hole. Read every post from BookGirl88. She was terrified of someone, asking about changing identities, about disappearing completely.
 
-**Segment 20:** (496 characters)
-Weeks passed. Then months. I went back to work, went through the motions of normal life. But I wasn't okay. How could I be? The woman I loved was out there somewhere, running from a monster.  And I couldn't do anything about it. I checked the news obsessively for any mention of Michael Chen or Rebecca Chen. Nothing. It was like they'd both vanished into thin air. I joined that true crime forum under a fake name, hoping BookGirl88 would post again. She never did.
+**Segment 17:** (687 characters)
+About how to know if you're being followed. The timeline fit perfectly. I searched for trials involving dangerous stalkers from seven years ago. Found dozens.  But one stood out: The State vs. Michael Chen.  Convicted of aggravated stalking, attempted kidnapping, assault.  The victim who testified: Rebecca Chen.  His ex-girlfriend.
 
-**Segment 21:** (491 characters)
-Six months after she disappeared, I still went to that coffee shop every Tuesday. Same table where I'd first seen her. I told myself I wasn't waiting for her.  That I was just a creature of habit.  But that was a lie. I was waiting.  Every time the door opened, my heart jumped. Every dark-haired woman made me look twice. I was living in limbo, unable to move forward, unable to go back. My friends stopped asking about her. They thought I was being pathetic. Maybe I was.
+Rebecca Chen. Twenty-eight years old. Graphic designer. The article included an old photo—and it was her. It was Sarah. Same eyes, same smile, same scar above her eyebrow. The article said Michael had been obsessed with her, convinced they were meant to be together. He'd broken into her apartment, tracked her every movement, sent threatening letters.
 
-**Segment 22:** (497 characters)
-Then it was a year. A full year since that Tuesday in the coffee shop. A full year since she'd walked over and called me out for not working. I sat at our table, drinking coffee that had gone cold, wondering if I'd imagined the whole thing. If love could make you delusional enough to create an entire relationship in your head. But I had the photos. The texts. The key to an apartment that now belonged to someone else. It had been real. She had been real.
+**Segment 18:** (480 characters)
+She'd gotten a restraining order. He'd violated it repeatedly. Finally, an attempted kidnapping. She'd barely escaped.
 
-**Segment 23:** (488 characters)
-I was about to leave when I noticed it. A book on the table.  Coffee-stained cover. The same book she'd been reading that first Tuesday. My hands trembled as I picked it up. It could be a coincidence. People spill coffee on books all the time.  But when I opened the front cover, I saw it.  Handwriting I'd memorized from grocery lists and Post-it notes and birthday cards. "When it's safe.  I promise. —S" I looked around wildly. She'd been here. Recently.
+Michael Chen was sentenced to seven years. I calculated dates with shaking hands. He would have been released three months ago.  Exactly when Sarah and I met.  Exactly when she started posting on that forum. Exactly when someone started watching her from the street. She'd known he was coming for her. She'd been preparing. And I—I'd been completely oblivious.
 
-**Segment 24:** (494 characters)
-I asked the barista if she'd seen who left the book. She shrugged. "Lots of people in and out today." I sat back down, clutching the book like a lifeline. She was alive. She was thinking about me. She'd come to our place, left me a message. When it's safe. That meant she was still running. Still hiding. But she'd promised. I believed her. I had to.  I started going to the coffee shop every day. Not just Tuesdays. Every single day.  Watching.  Waiting.  Hoping for another sign.
+**Segment 19:** (440 characters)
+Falling in love while she was planning her escape. Or maybe... maybe that's why she'd let me in. My phone buzzed. Unknown number. My heart stopped. I answered. "Tom." Her voice. Sarah's voice. I couldn't breathe. "Sarah, where are you?  Are you okay?" "Stop looking," she said quietly. "Please. I'm safe. He found me, but I'm handling it. You were real, all of it was real.  But I can't let you be part of this." "Part of what?" I demanded.
 
-**Segment 25:** (486 characters)
-Weeks passed with nothing. Then one Tuesday—it was always Tuesdays—I found another book. Different title, same coffee-stained cover. Inside: "He's gone. But I'm not ready. Soon. —S" He's gone. Michael Chen was gone. Dead?  Arrested?  Disappeared? I didn't know. But the threat was over. So why wasn't she coming back? I wanted to be patient, but the uncertainty was killing me. How much longer?  How many more coffee-stained books and cryptic messages?
+**Segment 20:** (475 characters)
+"Let me help you. We can go to the police—" "The police can't help me," she interrupted. "He's too smart. Too patient."
 
-**Segment 26:** (499 characters)
-I hired a private investigator. Gave her everything—the names, the case files, the timeline. She came back two weeks later looking troubled. "Michael Chen is dead," she said. "Car accident three months ago. Single vehicle collision on a mountain road." Three months ago. Right when the first book appeared. "And Rebecca?" I asked. The investigator shook her head. "No records. If she's using a new identity, it's a good one. Professional. She doesn't want to be found."
+"Then let me help," I said desperately. "I love you. We can figure this out together." There was silence. When she spoke again, her voice cracked. "I love you too. That's why you have to let me go. If he knows about you, he'll use you to get to me.  I won't let that happen.  Forget the coffee shop. Forget the bench.  Forget me." "I can't," I whispered.
 
-**Segment 27:** (491 characters)
-But she'd left me messages. She wanted me to wait. So I waited. Another month. Another book: "I'm scared." Just that. Two words that broke my heart. The threat was gone, but the trauma remained. She'd spent a year running, hiding, looking over her shoulder. That doesn't go away just because the monster dies. I understood.  I wrote in the book's margin: "Take your time. I'm here." Left it on the table the next day. Hoping she'd come back to check.
+**Segment 21:** (311 characters)
+"You have to," she said. And the line went dead. I tried calling back. The number was disconnected. I tried to trace the call. Got nowhere. Called Detective Reeves back, told him everything—Rebecca Chen, Michael Chen, the witness testimony, the stalking. He went quiet. "Stay out of this, Tom," he finally said.
 
-**Segment 28:** (497 characters)
-A week later, the book was gone. In its place: a new one. "Thank you for waiting.  Thank you for not giving up on me.  I'm healing. I'm learning to feel safe again.  I see a therapist now. I'm Rebecca again, not Sarah.  It's strange, remembering who I used to be.  The person you met was half-real, half-someone I invented to hide.  I want you to know the real me. But I'm scared you won't love her." My eyes burned. I wrote back: "I'll love every version of you."
+**Segment 22:** (479 characters)
+"Rebecca is being handled by people who know what they're doing." "What people?  Where is she?" "I can't tell you that. But she's safe. And you need to let it go.  For your safety and hers." He hung up before I could argue. I was shut out completely. Weeks passed. Then months. I went back to work, went through the motions of normal life. But I wasn't okay. How could I be? The woman I loved was out there somewhere, running from a monster.  And I couldn't do anything about it.
 
-**Segment 29:** (489 characters)
-The books became our communication. Once a week, sometimes twice. She told me about her therapy, about confronting the trauma she'd buried. About how she'd met me during the worst time of her life and hadn't meant to fall in love. About the guilt she felt for lying to me.  I told her about the months after she left, about refusing to give up.  About how I'd saved every text message and still wore the hoodie she'd left at my apartment because it smelled like her.
+**Segment 23:** (357 characters)
+I checked the news obsessively for any mention of Michael Chen or Rebecca Chen. Nothing. It was like they'd both vanished into thin air. I joined that true crime forum under a fake name, hoping BookGirl88 would post again. She never did.
 
-**Segment 30:** (495 characters)
-"I'm ready to see you," she wrote one day. My heart stopped. "But not as Tom and Sarah. As Tom and Rebecca. Fresh start?" I wrote back immediately: "Anywhere. Anytime." The next book: "Same place we met. Next Tuesday. 3pm. I'll be reading a book with a coffee-stained cover. You should come 'accidentally' sit too close and pretend to work on your laptop." I laughed for the first time in months. She remembered.  Of course she remembered.
+Six months after she disappeared, I still went to that coffee shop every Tuesday. Same table where I'd first seen her.
 
-**Segment 31:** (497 characters)
-That Tuesday took forever to arrive. I got to the coffee shop an hour early, too anxious to wait at home. I ordered coffee I didn't drink and stared at the door. At 2:55, I forced myself to look at my laptop, trying to recreate that first Tuesday. At 3:00 exactly, the door opened. And there she was. Different hair—shorter, lighter. Different clothes—softer, less guarded. But same eyes. Same smile. Same scar above her eyebrow. She sat at the corner table with a book.
+**Segment 24:** (497 characters)
+I told myself I wasn't waiting for her.  That I was just a creature of habit.  But that was a lie. I was waiting.  Every time the door opened, my heart jumped. Every dark-haired woman made me look twice. I was living in limbo, unable to move forward, unable to go back. My friends stopped asking about her. They thought I was being pathetic. Maybe I was.
 
-**Segment 32:** (487 characters)
-I waited twenty minutes, just like last time. Then walked over. "You're not actually reading," I said. "Your eyes aren't moving across the page." She looked up and smiled. "Guilty. I'm Rebecca." She extended her hand. I took it, and it felt like coming home. "Tom," I said, even though she knew.  Even though we'd been writing to each other for months. We were starting over, but we were also continuing. A paradox that somehow made perfect sense.
+Then it was a year. A full year since that Tuesday in the coffee shop. A full year since she'd walked over and called me out for not working.
 
-**Segment 33:** (493 characters)
-We talked for hours. Really talked, without secrets this time. She told me about growing up as Rebecca, about Michael's escalating obsession, about the trial.  About choosing to disappear instead of living in constant fear. About becoming Sarah—a name she'd always liked, a fresh identity. About meeting me and realizing she couldn't fully let anyone in while living a lie. "I wanted to tell you so many times," she said. "But I was terrified of putting you in danger."
+**Segment 25:** (490 characters)
+I sat at our table, drinking coffee that had gone cold, wondering if I'd imagined the whole thing. If love could make you delusional enough to create an entire relationship in your head. But I had the photos. The texts. The key to an apartment that now belonged to someone else. It had been real. She had been real.
 
-**Segment 34:** (498 characters)
-"I would have helped," I said. "I know," she replied. "But I couldn't risk it. He was too dangerous, too unpredictable. And you...  you were too important.  The only good thing in my life at that time.  I couldn't bear the thought of him hurting you because of me." She reached across the table and took my hand. "I'm sorry I left. I'm sorry I disappeared without explanation. I'm sorry I put you through hell." "I'm sorry you had to go through it at all," I said.
+I was about to leave when I noticed it. A book on the table.  Coffee-stained cover. The same book she'd been reading that first Tuesday. My hands trembled as I picked it up.
 
-**Segment 35:** (491 characters)
-We started dating again.  Slowly this time. Getting to know each other without the shadow of danger hanging over us. She was different as Rebecca—more open, more relaxed. The wariness in her eyes gradually faded. She laughed more easily.  Slept better. Started making plans for the future instead of constantly looking over her shoulder. We had date nights without her scanning the restaurant for exits. We took photos without her worrying about being found.
+**Segment 26:** (478 characters)
+It could be a coincidence. People spill coffee on books all the time. But when I opened the front cover, I saw it. Handwriting I'd memorized from grocery lists and Post-it notes and birthday cards. __QUOTE35__ I looked around wildly. She'd been here. Recently. I asked the barista if she'd seen who left the book. She shrugged. __QUOTE36__ I sat back down, clutching the book like a lifeline. She was alive. She was thinking about me. She'd come to our place, left me a message.
 
-**Segment 36:** (486 characters)
-Six months later, I proposed. Same bench in Bennett Park where I'd waited for her that terrible night. Where everything had fallen apart. I wanted to remake that memory into something beautiful. She cried when she said yes. "I never thought I'd get this," she said. "Normal life. Love. A future.  I thought Michael took all of that from me." "He didn't," I told her. "You survived. You got away. You won." "We won," she corrected. "You waited for me."
+**Segment 27:** (369 characters)
+When it's safe. That meant she was still running. Still hiding. But she'd promised. I believed her. I had to. I started going to the coffee shop every day. Not just Tuesdays. Every single day. Watching. Waiting. Hoping for another sign. Weeks passed with nothing. Then one Tuesday—it was always Tuesdays—I found another book. Different title, same coffee-stained cover.
 
-**Segment 37:** (497 characters)
-We got married on a Tuesday, of course. Small ceremony, just close friends and family. Rebecca's real sister came—yes, she had a real sister, just not named Melissa. The lies she'd told to protect her identity had been elaborate and necessary. Detective Reeves came too, off duty.  "I'm glad it worked out," he said. "I wanted to tell you she was okay, but I couldn't compromise her safety." I forgave him. How could I not? He'd been protecting the woman I loved.
+**Segment 28:** (153 characters)
+Inside: "He's gone. But I'm not ready. Soon. —S" He's gone. Michael Chen was gone. Dead?  Arrested?  Disappeared? I didn't know. But the threat was over.
 
-**Segment 38:** (494 characters)
-At the reception, someone asked how we met. Rebecca and I looked at each other. "At a coffee shop," I said. "On a Tuesday." "He wasn't really working on his laptop," Rebecca added. "Just staring at me like a creep." Everyone laughed. It was the truth, but not the whole truth. The whole truth was too dark for a wedding reception. The whole truth involved stalkers and disappearances and a year of agonizing uncertainty. But that was behind us now.
+**Segment 29:** (490 characters)
+So why wasn't she coming back? I wanted to be patient, but the uncertainty was killing me. How much longer?  How many more coffee-stained books and cryptic messages?
 
-**Segment 39:** (489 characters)
-We bought a house together. Adopted a dog named Tuesday. Started the life I'd imagined during those three months before everything fell apart. But it was better now, built on truth instead of secrets. Rebecca still had hard days—anniversaries of traumatic events, nightmares about Michael.  I learned to recognize the signs, to give her space or hold her close depending on what she needed.  Trauma doesn't disappear just because the threat does.
+I hired a private investigator. Gave her everything—the names, the case files, the timeline. She came back two weeks later looking troubled. __QUOTE38__ she said. __QUOTE39__ Three months ago. Right when the first book appeared. __QUOTE40__ I asked. The investigator shook her head. __QUOTE41__
 
-**Segment 40:** (497 characters)
-She started a support group for stalking victims. Used her experience to help others navigate the legal system, safety planning, and healing. She said it helped her process everything—turning her trauma into something useful. I was proud of her. The strength it took to not just survive but to thrive, to help others.  She was the bravest person I'd ever known. Sometimes she'd come home from a support group meeting quiet and drained.  I'd make tea and we'd sit in silence.
+But she'd left me messages.
 
-**Segment 41:** (488 characters)
-Two years after we reunited, Rebecca found out she was pregnant. We were terrified and thrilled in equal measure. "What if I can't do this?" she asked. "What if the trauma affects how I parent?" "You're going to be an amazing mom," I assured her. "You survived hell and came out stronger. You'll teach our kid to be brave and kind and resilient." She cried, hormones and emotion mixing. "I never thought I'd have this," she whispered. "Normal, beautiful things."
+**Segment 30:** (463 characters)
+She wanted me to wait. So I waited. Another month. Another book: "I'm scared." Just that. Two words that broke my heart. The threat was gone, but the trauma remained. She'd spent a year running, hiding, looking over her shoulder. That doesn't go away just because the monster dies. I understood. I wrote in the book's margin: __QUOTE43__ Left it on the table the next day. Hoping she'd come back to check. A week later, the book was gone. In its place: a new one.
 
-**Segment 42:** (493 characters)
-Our daughter was born on a Tuesday. We named her Hope. Rebecca held her and cried tears of joy and relief and healing. "She's perfect," she kept saying. "She's safe. We're safe." I took a photo of them together—my wife and daughter, bathed in golden afternoon light from the hospital window. Later, I printed it and put it on my desk at work. Sometimes I'd stare at it, marveling at the journey that led us here. From coffee shop to catastrophe to this.
+**Segment 31:** (473 characters)
+"Thank you for waiting.  Thank you for not giving up on me.  I'm healing. I'm learning to feel safe again.  I see a therapist now. I'm Rebecca again, not Sarah.  It's strange, remembering who I used to be.  The person you met was half-real, half-someone I invented to hide.  I want you to know the real me. But I'm scared you won't love her." My eyes burned. I wrote back: "I'll love every version of you."
 
-**Segment 43:** (491 characters)
-People sometimes ask if I ever regret it—loving someone with that kind of complicated past. The truth?  Never. Not for a second. Yes, it was hard. Yes, there were moments of despair and uncertainty. But Rebecca was worth it. Love isn't always easy or simple.  Sometimes it requires patience and faith and waiting in a coffee shop every Tuesday for a year. Sometimes it means loving someone through their healing, not just their happiness. I'd do it all again.
+The books became our communication. Once a week, sometimes twice.
 
-**Segment 44:** (486 characters)
-We still go to that coffee shop every Tuesday. Rebecca reads books with coffee-stained covers—she does it on purpose now, a private joke between us. I pretend to work on my laptop.  Our daughter sits between us, coloring.  Sometimes I catch Rebecca watching me with this soft expression, like she still can't quite believe this is her life. I understand. Sometimes I can't believe it either. That we found each other.  Lost each other. Found each other again.
+**Segment 32:** (773 characters)
+She told me about her therapy, about confronting the trauma she'd buried. About how she'd met me during the worst time of her life and hadn't meant to fall in love. About the guilt she felt for lying to me.  I told her about the months after she left, about refusing to give up.  About how I'd saved every text message and still wore the hoodie she'd left at my apartment because it smelled like her.
 
-**Segment 45:** (497 characters)
-Last Tuesday, Hope asked why we always come to this coffee shop. Rebecca and I exchanged glances. "This is where we met," I said.  "Where your mom called me out for pretending to work." "Were you friends?" Hope asked. "Eventually," Rebecca said, smiling. "After some complicated stuff." "What kind of stuff?" "The kind I'll tell you about when you're older," Rebecca replied. "The important part is we found each other." "And we never let go," I added.
+__QUOTE46__ she wrote one day. My heart stopped. __QUOTE47__ I wrote back immediately: __QUOTE48__ The next book: __QUOTE49__ I laughed for the first time in months. She remembered.  Of course she remembered.
 
----
+That Tuesday took forever to arrive. I got to the coffee shop an hour early, too anxious to wait at home. I ordered coffee I didn't drink and stared at the door.
+
+**Segment 33:** (480 characters)
+At 2:55, I forced myself to look at my laptop, trying to recreate that first Tuesday. At 3:00 exactly, the door opened. And there she was. Different hair—shorter, lighter. Different clothes—softer, less guarded. But same eyes. Same smile. Same scar above her eyebrow. She sat at the corner table with a book. I waited twenty minutes, just like last time. Then walked over. "You're not actually reading," I said. "Your eyes aren't moving across the page." She looked up and smiled.
+
+**Segment 34:** (434 characters)
+"Guilty. I'm Rebecca." She extended her hand. I took it, and it felt like coming home. "Tom," I said, even though she knew. Even though we'd been writing to each other for months. We were starting over, but we were also continuing. A paradox that somehow made perfect sense.
+
+We talked for hours. Really talked, without secrets this time. She told me about growing up as Rebecca, about Michael's escalating obsession, about the trial.
+
+**Segment 35:** (364 characters)
+About choosing to disappear instead of living in constant fear. About becoming Sarah—a name she'd always liked, a fresh identity. About meeting me and realizing she couldn't fully let anyone in while living a lie. "I wanted to tell you so many times," she said. "But I was terrified of putting you in danger."
+
+"I would have helped," I said. "I know," she replied.
+
+**Segment 36:** (453 characters)
+"But I couldn't risk it. He was too dangerous, too unpredictable. And you...  you were too important.  The only good thing in my life at that time.  I couldn't bear the thought of him hurting you because of me." She reached across the table and took my hand. "I'm sorry I left. I'm sorry I disappeared without explanation. I'm sorry I put you through hell." "I'm sorry you had to go through it at all," I said. We started dating again. Slowly this time.
+
+**Segment 37:** (443 characters)
+Getting to know each other without the shadow of danger hanging over us. She was different as Rebecca—more open, more relaxed. The wariness in her eyes gradually faded. She laughed more easily. Slept better. Started making plans for the future instead of constantly looking over her shoulder. We had date nights without her scanning the restaurant for exits. We took photos without her worrying about being found. Six months later, I proposed.
+
+**Segment 38:** (469 characters)
+Same bench in Bennett Park where I'd waited for her that terrible night. Where everything had fallen apart. I wanted to remake that memory into something beautiful. She cried when she said yes. __QUOTE61__ she said. __QUOTE62__ __QUOTE63__ I told her. __QUOTE64__ __QUOTE65__ she corrected. __QUOTE66__
+
+We got married on a Tuesday, of course. Small ceremony, just close friends and family. Rebecca's real sister came—yes, she had a real sister, just not named Melissa.
+
+**Segment 39:** (454 characters)
+The lies she'd told to protect her identity had been elaborate and necessary. Detective Reeves came too, off duty.  __QUOTE67__ he said. __QUOTE68__ I forgave him. How could I not? He'd been protecting the woman I loved. At the reception, someone asked how we met. Rebecca and I looked at each other. "At a coffee shop," I said. "On a Tuesday." "He wasn't really working on his laptop," Rebecca added. "Just staring at me like a creep." Everyone laughed.
+
+**Segment 40:** (271 characters)
+It was the truth, but not the whole truth. The whole truth was too dark for a wedding reception. The whole truth involved stalkers and disappearances and a year of agonizing uncertainty. But that was behind us now. We bought a house together. Adopted a dog named Tuesday.
+
+**Segment 41:** (439 characters)
+Started the life I'd imagined during those three months before everything fell apart. But it was better now, built on truth instead of secrets. Rebecca still had hard days—anniversaries of traumatic events, nightmares about Michael.  I learned to recognize the signs, to give her space or hold her close depending on what she needed.  Trauma doesn't disappear just because the threat does. She started a support group for stalking victims.
+
+**Segment 42:** (487 characters)
+Used her experience to help others navigate the legal system, safety planning, and healing. She said it helped her process everything—turning her trauma into something useful. I was proud of her. The strength it took to not just survive but to thrive, to help others. She was the bravest person I'd ever known. Sometimes she'd come home from a support group meeting quiet and drained. I'd make tea and we'd sit in silence. Two years after we reunited, Rebecca found out she was pregnant.
+
+**Segment 43:** (453 characters)
+We were terrified and thrilled in equal measure. "What if I can't do this?" she asked. "What if the trauma affects how I parent?" "You're going to be an amazing mom," I assured her. "You survived hell and came out stronger. You'll teach our kid to be brave and kind and resilient." She cried, hormones and emotion mixing. "I never thought I'd have this," she whispered. "Normal, beautiful things."
+
+Our daughter was born on a Tuesday. We named her Hope.
+
+**Segment 44:** (287 characters)
+Rebecca held her and cried tears of joy and relief and healing. "She's perfect," she kept saying. "She's safe. We're safe." I took a photo of them together—my wife and daughter, bathed in golden afternoon light from the hospital window. Later, I printed it and put it on my desk at work.
+
+**Segment 45:** (466 characters)
+Sometimes I'd stare at it, marveling at the journey that led us here. From coffee shop to catastrophe to this.
+
+People sometimes ask if I ever regret it—loving someone with that kind of complicated past. The truth?  Never. Not for a second. Yes, it was hard. Yes, there were moments of despair and uncertainty. But Rebecca was worth it. Love isn't always easy or simple. Sometimes it requires patience and faith and waiting in a coffee shop every Tuesday for a year.
+
+**Segment 46:** (459 characters)
+Sometimes it means loving someone through their healing, not just their happiness. I'd do it all again.
+
+We still go to that coffee shop every Tuesday. Rebecca reads books with coffee-stained covers—she does it on purpose now, a private joke between us. I pretend to work on my laptop.  Our daughter sits between us, coloring.  Sometimes I catch Rebecca watching me with this soft expression, like she still can't quite believe this is her life. I understand.
+
+**Segment 47:** (478 characters)
+Sometimes I can't believe it either. That we found each other. Lost each other. Found each other again. Last Tuesday, Hope asked why we always come to this coffee shop. Rebecca and I exchanged glances. "This is where we met," I said. "Where your mom called me out for pretending to work." "Were you friends?" Hope asked. "Eventually," Rebecca said, smiling. "After some complicated stuff." "What kind of stuff?" "The kind I'll tell you about when you're older," Rebecca replied.
+
+**Segment 48:** (80 characters)
+"The important part is we found each other." "And we never let go," I added. ---
 
 ### Storyboard Images
 
@@ -1379,13 +1438,17 @@ Segment 39: (497 characters) The boundary was at a hundred feet now. Growing fas
 
 Segment 40: (495 characters) I called everyone in our network. Sent the footage. "It's happening. Bennett Park. The pocket's reforming. We need to go public now. Before it's too big to hide." Within an hour, the footage was everywhere. Social media, news sites, forums. Undeniable evidence. A frozen zone in the middle of a city park, visible, measurable, containing translucent figures from the past. The story exploded. Media descended. Scientists. Government. By dawn, the park was cordoned off. Officials scrambling to explain. But they couldn't. The thin spot had finally become too obvious to hide. Too dangerous to ignore. My grandmother's secret was out. Seventy-three years later, the truth about Bennett Park was finally public.
 
-Segment 41: (498 characters) The government admitted it. Partially. "A failed experiment in 1952. Temporal research, now understood to be impossible. The site has residual effects. We're working to neutralize them." They didn't mention the frozen people. Didn't mention that those effects were worsening. Didn't mention that the pocket was still growing, slowly, still consuming more reality. They evacuated buildings near the park. Set up a perimeter. Brought in equipment to "stabilize the anomaly." But I saw the scientists' faces. They had no idea how to fix it. You can't fix time once it's broken. My grandmother had been right about that. They were just trying to contain the damage. Prevent it from spreading. Hoping they could freeze the frozen zone before it consumed everything.
+Segment 41: (498 characters) 
+The government admitted it. Partially. "A failed experiment in 1952. Temporal research, now understood to be impossible. The site has residual effects. We're working to neutralize them." They didn't mention the frozen people. Didn't mention that those effects were worsening. Didn't mention that the pocket was still growing, slowly, still consuming more reality. They evacuated buildings near the park. Set up a perimeter. Brought in equipment to "stabilize the anomaly." But I saw the scientists' faces. They had no idea how to fix it. You can't fix time once it's broken. My grandmother had been right about that. They were just trying to contain the damage. Prevent it from spreading. Hoping they could freeze the frozen zone before it consumed everything.
 
-Segment 42: (492 characters) I visited the perimeter every day. Watched them work. They brought in machines—modern versions of what Dr. Vance had built. Trying to contain the pocket. Trying to collapse it. Nothing worked. If anything, their interference made it worse. The pocket grew to two hundred feet. Then five hundred. Consuming more of the park. They evacuated more blocks. Emergency declared. Media called it "The Bennett Park Incident." Physicists called it "temporal collapse." I called it what my grandmother would have: consequences. Seventy-three years of buried consequences finally surfacing. Time, once broken, stays broken. You can't hide it forever. Eventually, the damage spreads. Eventually, everyone pays.
+Segment 42: (492 characters) 
+I visited the perimeter every day. Watched them work. They brought in machines—modern versions of what Dr. Vance had built. Trying to contain the pocket. Trying to collapse it. Nothing worked. If anything, their interference made it worse. The pocket grew to two hundred feet. Then five hundred. Consuming more of the park. They evacuated more blocks. Emergency declared. Media called it "The Bennett Park Incident." Physicists called it "temporal collapse." I called it what my grandmother would have: consequences. Seventy-three years of buried consequences finally surfacing. Time, once broken, stays broken. You can't hide it forever. Eventually, the damage spreads. Eventually, everyone pays.
 
-Segment 43: (497 characters) Three months later, they're still trying. The pocket has stabilized at roughly a thousand feet across. Encompassing most of Bennett Park and several surrounding blocks. Everything inside is frozen. Buildings, trees, people who didn't evacuate in time. All trapped in stopped time. All conscious. All aware. All suffering eternally. The city has walled it off. Declared it a dead zone. Forbidden. They say they're working on a solution. But I know they're not. There is no solution. They're just accepting it. A permanently frozen zone in the middle of the city. A scar on reality that will never heal. My grandmother tried to warn us. Tried to say time can't be controlled. We didn't listen. Now we have proof. Eternal, frozen proof.
+Segment 43: (497 characters) 
+Three months later, they're still trying. The pocket has stabilized at roughly a thousand feet across. Encompassing most of Bennett Park and several surrounding blocks. Everything inside is frozen. Buildings, trees, people who didn't evacuate in time. All trapped in stopped time. All conscious. All aware. All suffering eternally. The city has walled it off. Declared it a dead zone. Forbidden. They say they're working on a solution. But I know they're not. There is no solution. They're just accepting it. A permanently frozen zone in the middle of the city. A scar on reality that will never heal. My grandmother tried to warn us. Tried to say time can't be controlled. We didn't listen. Now we have proof. Eternal, frozen proof.
 
-Segment 44: (498 characters) I still have her diary. Still have the photographs. They're in a museum now—"The Bennett Park Exhibition: Understanding the 1952 Incident." People walk through, reading about temporal research and failed experiments and the dangers of hubris. They look at my grandmother's picture—young, frightened, brave. They don't know she spent subjective decades frozen in a moment. They don't know she carried that trauma for seventy years in silence. They don't know that everyone who visits the exhibition, everyone who looks at Bennett Park's frozen zone, everyone who experiences lost time or strange coincidences in thin spots throughout the city—they're all living with consequences of one night when seven people tried to stop time. And almost succeeded. The park is closed now. Frozen forever. But the thin spots remain. The temporal distortions spread. The damage continues. Because time, once broken, stays broken. My grandmother knew. Tried to warn us. We learned too late. Now we live in a city where time doesn't work quite right. Where moments freeze and stretch and slip away. Where the past bleeds into the present. Where Bennett Park sits frozen, a monument to what happens when humans try to control things they don't understand. I visit sometimes. Stand at the perimeter. Look at the frozen zone. See my grandmother inside, still twenty-one, still running, still trapped. Still warning us. Still teaching us. Still proving that some mistakes last forever.
+Segment 44: (498 characters) 
+I still have her diary. Still have the photographs. They're in a museum now—"The Bennett Park Exhibition: Understanding the 1952 Incident." People walk through, reading about temporal research and failed experiments and the dangers of hubris. They look at my grandmother's picture—young, frightened, brave. They don't know she spent subjective decades frozen in a moment. They don't know she carried that trauma for seventy years in silence. They don't know that everyone who visits the exhibition, everyone who looks at Bennett Park's frozen zone, everyone who experiences lost time or strange coincidences in thin spots throughout the city—they're all living with consequences of one night when seven people tried to stop time. And almost succeeded. The park is closed now. Frozen forever. But the thin spots remain. The temporal distortions spread. The damage continues. Because time, once broken, stays broken. My grandmother knew. Tried to warn us. We learned too late. Now we live in a city where time doesn't work quite right. Where moments freeze and stretch and slip away. Where the past bleeds into the present. Where Bennett Park sits frozen, a monument to what happens when humans try to control things they don't understand. I visit sometimes. Stand at the perimeter. Look at the frozen zone. See my grandmother inside, still twenty-one, still running, still trapped. Still warning us. Still teaching us. Still proving that some mistakes last forever.
 
 Storyboard Images
 

@@ -122,6 +122,33 @@ describe("chunkText", () => {
 			expect(result.chunks[0].content).toContain("Dr.");
 			expect(result.chunks[0].content).toContain("Mrs.");
 		});
+
+		it("should handle quoted dialogue with internal punctuation", () => {
+			const text = `After twenty minutes, she walked over and said, "You're not actually working. Your screen's been on the same page this whole time."`;
+			const settings: ChunkSettings = { maxCharacters: 500 };
+
+			const result = chunkText(text, settings);
+
+			// Should treat the entire quoted sentence as one unit, not split on internal punctuation
+			expect(result.chunks).toHaveLength(1);
+			expect(result.chunks[0].content).toBe(text);
+			expect(result.chunks[0].sentenceCount).toBe(1);
+			// Should not have a floating quote mark
+			expect(result.chunks[0].content).not.toMatch(/^\s*["']/);
+		});
+
+		it("should handle multiple quoted sentences in sequence", () => {
+			const text = `I laughed, caught. "Guilty. I'm Tom." "Sarah," she said, extending her hand.`;
+			const settings: ChunkSettings = { maxCharacters: 500 };
+
+			const result = chunkText(text, settings);
+
+			// Should recognize sentence boundaries correctly
+			expect(result.chunks).toHaveLength(1);
+			expect(result.chunks[0].content).toContain("Guilty");
+			expect(result.chunks[0].content).toContain("Tom");
+			expect(result.chunks[0].content).toContain("Sarah");
+		});
 	});
 
 	describe("edge cases", () => {
@@ -222,6 +249,101 @@ describe("chunkText", () => {
 			expect(() => chunkText(text, settings)).toThrow(
 				/continuous content.*without sentence boundaries.*exceeds the limit/i
 			);
+		});
+	});
+
+	describe("fallback split", () => {
+		it("should preserve quotes when force splitting text", () => {
+			// This is the exact scenario from writing1.md that was failing
+			const text = 'She read mystery novels obsessively—the darker, the better. "I like figuring out the twist before the author reveals it," she told me once. I joked that she was too smart for her own good. She didn\'t laugh at that.';
+			const settings: ChunkSettings = { maxCharacters: 100, fallbackSplit: true };
+
+			const result = chunkText(text, settings);
+
+			// Should be split into multiple chunks due to length
+			expect(result.chunks.length).toBeGreaterThan(1);
+
+			// Combine all chunks back together
+			const combined = result.chunks.map(c => c.content).join(' ');
+
+			// Should NOT contain any __QUOTE placeholders
+			expect(combined).not.toContain('__QUOTE');
+
+			// Should contain the actual quote
+			expect(combined).toContain('"I like figuring out the twist before the author reveals it,"');
+		});
+
+		it("should force split continuous text when fallbackSplit is enabled", () => {
+			// Create 800 characters of continuous text without sentence boundaries
+			const text = "a".repeat(800);
+			const settings: ChunkSettings = { maxCharacters: 500, fallbackSplit: true };
+
+			const result = chunkText(text, settings);
+
+			// Should be split into 2 chunks
+			expect(result.chunks.length).toBe(2);
+			// All chunks should respect the limit
+			result.chunks.forEach(chunk => {
+				expect(chunk.characterCount).toBeLessThanOrEqual(500);
+			});
+		});
+
+		it("should force split long sentences when fallbackSplit is enabled", () => {
+			// Create a long sentence that exceeds the limit
+			const text = "This is a very long sentence that continues on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on.";
+			const settings: ChunkSettings = { maxCharacters: 200, fallbackSplit: true };
+
+			const result = chunkText(text, settings);
+
+			// Should be split into multiple chunks
+			expect(result.chunks.length).toBeGreaterThan(1);
+			// All chunks should respect the limit
+			result.chunks.forEach(chunk => {
+				expect(chunk.characterCount).toBeLessThanOrEqual(200);
+			});
+		});
+
+		it("should split at word boundaries when possible with fallbackSplit", () => {
+			// Create text that can be split at word boundaries
+			const text = "word ".repeat(200); // 1000 characters
+			const settings: ChunkSettings = { maxCharacters: 300, fallbackSplit: true };
+
+			const result = chunkText(text, settings);
+
+			// Check that splits happen at word boundaries (no broken words)
+			result.chunks.forEach(chunk => {
+				const content = chunk.content.trim();
+				// Should not start or end with partial words
+				expect(content).toMatch(/^\w+/);
+				expect(content).toMatch(/\w+$/);
+			});
+		});
+
+		it("should preserve normal sentence chunking when fallbackSplit is enabled but not needed", () => {
+			const text = "First sentence. Second sentence. Third sentence.";
+			const settings: ChunkSettings = { maxCharacters: 500, fallbackSplit: true };
+
+			const result = chunkText(text, settings);
+
+			// Should be combined into one chunk since it fits
+			expect(result.chunks.length).toBe(1);
+			expect(result.chunks[0].content).toBe(text);
+		});
+
+		it("should handle mixed normal and oversized content with fallbackSplit", () => {
+			const normalText = "Short sentence. ";
+			const longText = "a".repeat(600);
+			const text = normalText + longText;
+			const settings: ChunkSettings = { maxCharacters: 500, fallbackSplit: true };
+
+			const result = chunkText(text, settings);
+
+			// Should split the continuous text
+			expect(result.chunks.length).toBeGreaterThan(1);
+			// All chunks should respect the limit
+			result.chunks.forEach(chunk => {
+				expect(chunk.characterCount).toBeLessThanOrEqual(500);
+			});
 		});
 	});
 
@@ -347,15 +469,19 @@ describe("chunkText", () => {
 });
 
 describe("exportAsSingleFile", () => {
-	it("should format chunks with numbered headers", () => {
+	it("should export chunks without numbered headers", () => {
 		const text = "First sentence. Second sentence. Third sentence.";
 		const settings: ChunkSettings = { maxCharacters: 20 };
 		const result = chunkText(text, settings);
 
 		const exported = exportAsSingleFile(result.chunks);
 
-		expect(exported).toContain("Chunk 1");
-		expect(exported).toContain("Chunk 2");
+		// Should not contain "Chunk" labels
+		expect(exported).not.toContain("Chunk 1");
+		expect(exported).not.toContain("Chunk 2");
+		// Should contain the actual content
+		expect(exported).toContain("First sentence.");
+		expect(exported).toContain("Second sentence.");
 	});
 
 	it("should separate chunks with double newlines", () => {
@@ -374,14 +500,40 @@ describe("exportAsSingleFile", () => {
 		expect(exported).toBe("");
 	});
 
-	it("should preserve original content in export", () => {
-		const text = "Test sentence with special chars: @#$%!";
+	it('should preserve original content in export', () => {
+		const text = 'Test sentence with special chars: @#$%!';
 		const settings: ChunkSettings = { maxCharacters: 500 };
 		const result = chunkText(text, settings);
 
 		const exported = exportAsSingleFile(result.chunks);
 
 		expect(exported).toContain(text);
+	});
+
+	it('should join chunks with double newlines', () => {
+		const text = 'First sentence. Second sentence. Third sentence.';
+		const settings: ChunkSettings = { maxCharacters: 20 };
+		const result = chunkText(text, settings);
+
+		const exported = exportAsSingleFile(result.chunks);
+
+		// Should have double newlines between chunks
+		expect(exported).toContain('\n\n');
+		// Should contain all content
+		expect(exported).toContain('First sentence.');
+		expect(exported).toContain('Second sentence.');
+	});
+
+	it('should preserve content exactly as is without adding newlines', () => {
+		const chunks: Chunk[] = [
+			{ id: 1, content: 'First chunk', characterCount: 11, sentenceCount: 1 },
+			{ id: 2, content: 'Second chunk', characterCount: 12, sentenceCount: 1 }
+		];
+
+		const exported = exportAsSingleFile(chunks);
+
+		// Should not add newlines to content
+		expect(exported).toBe('First chunk\n\nSecond chunk');
 	});
 });
 

@@ -111,18 +111,17 @@ describe("chunker integration tests with real file", () => {
 			const result = chunkText(exampleText, settings);
 			const exported = exportAsSingleFile(result.chunks);
 
-			// Should contain all chunk headers
-			result.chunks.forEach((chunk) => {
-				expect(exported).toContain(`Chunk ${chunk.id}`);
-			});
+			// Should not contain "Chunk" labels
+			expect(exported).not.toContain("Chunk 1");
+			expect(exported).not.toContain("Chunk 2");
 
 			// Should contain original content (allowing for whitespace normalization)
 			result.chunks.forEach((chunk) => {
 				expect(exported).toContain(chunk.content);
 			});
 
-			// Should have proper formatting
-			expect(exported).toMatch(/Chunk \d+\n/);
+			// Should have proper formatting with double newlines between groups
+			expect(exported).toMatch(/\n\n/);
 		});
 
 		it("should prepare multiple files correctly for the example", () => {

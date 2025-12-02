@@ -25,10 +25,11 @@ function detectSentences(text: string): string[] {
 		"i.e",
 	];
 
-	// Replace abbreviations temporarily to avoid false sentence breaks
 	let processed = text;
 	const abbreviationMap = new Map<string, string>();
+	const quoteMap = new Map<string, string>();
 
+	// Replace abbreviations temporarily to avoid false sentence breaks
 	abbreviations.forEach((abbr, index) => {
 		const placeholder = `__ABBR${index}__`;
 		const regex = new RegExp(`\\b${abbr}\\.`, "gi");
@@ -38,16 +39,44 @@ function detectSentences(text: string): string[] {
 		});
 	});
 
-	// Split on sentence boundaries: . ! ? followed by space/newline or end of string
-	// This regex captures the punctuation with the sentence
-	const sentencePattern = /[^.!?]+[.!?]+/g;
-	const sentences = processed.match(sentencePattern) || [];
+	// Protect quoted content from being split (both single and double quotes)
+	// This handles cases like: said, "You're not working. Your screen's been..."
+	// Only match actual quoted dialogue, not apostrophes in contractions
+	let quoteIndex = 0;
 
-	// Restore abbreviations
+	// Match double quotes with content inside
+	processed = processed.replace(/"[^"]*"/g, (match) => {
+		const placeholder = `__QUOTE${quoteIndex}__`;
+		quoteMap.set(placeholder, match);
+		quoteIndex++;
+		return placeholder;
+	});
+
+	// Match single quotes that are dialogue (have spaces or start/end sentence)
+	// NOT apostrophes in contractions like "don't", "it's", "I'm"
+	// This regex matches: 'quoted text' but not contractions
+	processed = processed.replace(/(\s|^)'([^']{2,})'(\s|[.!?,;:]|$)/g, (match, before, content, after) => {
+		const placeholder = `__QUOTE${quoteIndex}__`;
+		const fullQuote = `'${content}'`;
+		quoteMap.set(placeholder, fullQuote);
+		quoteIndex++;
+		return before + placeholder + after;
+	});
+
+	// Split on sentence boundaries: . ! ? at end of text or followed by whitespace
+	// Pattern now includes placeholders (letters, numbers, underscores)
+	const sentencePattern = /[^.!?]+[.!?]+(?:\s+|$)/g;
+	const matches = processed.match(sentencePattern) || [];
+	const sentences = matches.map(s => s.trim()).filter(s => s.length > 0);
+
+	// Restore quotes first, then abbreviations
 	const restoredSentences = sentences.map((sentence) => {
 		let restored = sentence;
+		quoteMap.forEach((original, placeholder) => {
+			restored = restored.replaceAll(placeholder, original);
+		});
 		abbreviationMap.forEach((original, placeholder) => {
-			restored = restored.replace(placeholder, original);
+			restored = restored.replaceAll(placeholder, original);
 		});
 		return restored.trim();
 	});
@@ -58,10 +87,13 @@ function detectSentences(text: string): string[] {
 	const trailingText = processed.slice(matchedLength).trim();
 
 	if (trailingText.length > 0) {
-		// Restore abbreviations in trailing text
+		// Restore quotes and abbreviations in trailing text
 		let restoredTrailing = trailingText;
+		quoteMap.forEach((original, placeholder) => {
+			restoredTrailing = restoredTrailing.replaceAll(placeholder, original);
+		});
 		abbreviationMap.forEach((original, placeholder) => {
-			restoredTrailing = restoredTrailing.replace(placeholder, original);
+			restoredTrailing = restoredTrailing.replaceAll(placeholder, original);
 		});
 		restoredSentences.push(restoredTrailing.trim());
 	}
@@ -118,6 +150,36 @@ function calculateStats(chunks: Chunk[]): ChunkStats {
 }
 
 /**
+ * Splits continuous text that exceeds the limit by forcing character-based splits
+ * Used as a fallback when text has no sentence boundaries
+ */
+function forceSplitContinuousText(text: string, maxCharacters: number): string[] {
+	const parts: string[] = [];
+	let remaining = text;
+
+	while (remaining.length > maxCharacters) {
+		// Try to split at a word boundary near the limit
+		let splitPoint = maxCharacters;
+		const substring = remaining.substring(0, maxCharacters);
+		const lastSpace = substring.lastIndexOf(' ');
+
+		// If we found a space in the last 20% of the substring, use it
+		if (lastSpace > maxCharacters * 0.8) {
+			splitPoint = lastSpace;
+		}
+
+		parts.push(remaining.substring(0, splitPoint).trim());
+		remaining = remaining.substring(splitPoint).trim();
+	}
+
+	if (remaining.length > 0) {
+		parts.push(remaining);
+	}
+
+	return parts;
+}
+
+/**
  * Main chunking function
  * Splits text into chunks while preserving sentence boundaries
  *
@@ -126,7 +188,7 @@ function calculateStats(chunks: Chunk[]): ChunkStats {
  * @returns ChunkResult with chunks and statistics
  */
 export function chunkText(text: string, settings: ChunkSettings): ChunkResult {
-	const { maxCharacters } = settings;
+	const { maxCharacters, fallbackSplit = false } = settings;
 
 	// Handle empty or invalid input
 	if (!text || text.trim().length === 0) {
@@ -154,22 +216,55 @@ export function chunkText(text: string, settings: ChunkSettings): ChunkResult {
 			continue;
 		}
 
-		// If a single sentence exceeds the limit, check if it's continuous text without punctuation
+		// If a single sentence exceeds the limit
 		if (trimmedSentence.length > maxCharacters) {
-			// If the sentence doesn't end with proper punctuation, it's continuous text
+			// If the sentence doesn't end with proper punctuation, it's continuous text without boundaries
 			if (!/[.!?]$/.test(trimmedSentence)) {
-				throw new Error(
-					`Text contains continuous content (${trimmedSentence.length} characters) without sentence boundaries that exceeds the limit of ${maxCharacters} characters. Please add punctuation or increase the character limit.`
-				);
+				if (fallbackSplit) {
+					// Use fallback split to break continuous text
+					// Save current chunk first
+					if (currentChunk.trim().length > 0) {
+						chunks.push(createChunk(chunkId++, currentChunk));
+						currentChunk = "";
+					}
+					// Split the continuous text and add as separate chunks
+					const forcedParts = forceSplitContinuousText(trimmedSentence, maxCharacters);
+					for (const part of forcedParts) {
+						chunks.push(createChunk(chunkId++, part));
+					}
+					continue;
+				} else {
+					throw new Error(
+						`Text contains continuous content (${trimmedSentence.length} characters) without sentence boundaries that exceeds the limit of ${maxCharacters} characters. Please add punctuation or increase the character limit.`
+					);
+				}
 			}
-			// Save current chunk if it has content
-			if (currentChunk.trim().length > 0) {
-				chunks.push(createChunk(chunkId++, currentChunk));
-				currentChunk = "";
+
+			// It's a properly punctuated sentence, but still too long
+			if (fallbackSplit) {
+				// Use fallback split even for long sentences when enabled
+				// Save current chunk first
+				if (currentChunk.trim().length > 0) {
+					chunks.push(createChunk(chunkId++, currentChunk));
+					currentChunk = "";
+				}
+				// Split the long sentence and add as separate chunks
+				const forcedParts = forceSplitContinuousText(trimmedSentence, maxCharacters);
+				for (const part of forcedParts) {
+					chunks.push(createChunk(chunkId++, part));
+				}
+				continue;
+			} else {
+				// Allow the long sentence as its own chunk
+				// Save current chunk if it has content
+				if (currentChunk.trim().length > 0) {
+					chunks.push(createChunk(chunkId++, currentChunk));
+					currentChunk = "";
+				}
+				// Add the long sentence as its own chunk
+				chunks.push(createChunk(chunkId++, trimmedSentence));
+				continue;
 			}
-			// Add the long sentence as its own chunk
-			chunks.push(createChunk(chunkId++, trimmedSentence));
-			continue;
 		}
 
 		// Try adding the sentence to the current chunk
@@ -204,6 +299,7 @@ export function chunkText(text: string, settings: ChunkSettings): ChunkResult {
 /**
  * Exports chunks as a single text file without chunk headers
  * Format: "[text]\n\n[text]\n\n[text]..."
+ * Ensures each chunk starts on a new line if it doesn't already
  */
 export function exportAsSingleFile(chunks: Chunk[]): string {
 	return chunks
