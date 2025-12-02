@@ -1,16 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "$lib/components/ui/card";
-	import { Button } from "$lib/components/ui/button";
+	import { Button, buttonVariants } from "$lib/components/ui/button";
 	import { Input } from "$lib/components/ui/input";
 	import { getAllStates, deleteState, updateStateName, clearAllStates, type ChunkingState } from "$lib/db/storage";
 	import { toast } from "svelte-sonner";
 	import { goto } from '$app/navigation';
+	import * as AlertDialog from "$lib/components/ui/alert-dialog";
 
 	let states = $state<ChunkingState[]>([]);
 	let isLoading = $state(true);
 	let editingId = $state<number | null>(null);
 	let editingName = $state("");
+	let showDeleteDialog = $state(false);
+	let showClearAllDialog = $state(false);
+	let deleteTargetId = $state<number | null>(null);
 
 	onMount(async () => {
 		await loadStates();
@@ -21,39 +25,42 @@
 			isLoading = true;
 			states = await getAllStates();
 		} catch (error) {
-			console.error("Failed to load states:", error);
 			toast.error("Failed to load history", { duration: 5000 });
 		} finally {
 			isLoading = false;
 		}
 	}
 
-	async function handleDelete(id: number) {
-		if (!confirm("Are you sure you want to delete this state?")) {
-			return;
-		}
-
-		try {
-			await deleteState(id);
-			states = states.filter(s => s.id !== id);
-			toast.success("State deleted", { duration: 3000 });
-		} catch (error) {
-			console.error("Failed to delete state:", error);
-			toast.error("Failed to delete state", { duration: 5000 });
-		}
+	function openDeleteDialog(id: number) {
+		deleteTargetId = id;
+		showDeleteDialog = true;
 	}
 
-	async function handleClearAll() {
-		if (!confirm("Are you sure you want to delete ALL saved states? This cannot be undone.")) {
-			return;
-		}
+	async function confirmDelete() {
+		if (deleteTargetId === null) return;
 
+		showDeleteDialog = false;
+		try {
+			await deleteState(deleteTargetId);
+			states = states.filter(s => s.id !== deleteTargetId);
+			toast.success("State deleted", { duration: 3000 });
+		} catch (error) {
+			toast.error("Failed to delete state", { duration: 5000 });
+		}
+		deleteTargetId = null;
+	}
+
+	function openClearAllDialog() {
+		showClearAllDialog = true;
+	}
+
+	async function confirmClearAll() {
+		showClearAllDialog = false;
 		try {
 			await clearAllStates();
 			states = [];
 			toast.success("All states cleared", { duration: 3000 });
 		} catch (error) {
-			console.error("Failed to clear states:", error);
 			toast.error("Failed to clear states", { duration: 5000 });
 		}
 	}
@@ -75,7 +82,6 @@
 			editingId = null;
 			toast.success("Name updated", { duration: 3000 });
 		} catch (error) {
-			console.error("Failed to update name:", error);
 			toast.error("Failed to update name", { duration: 5000 });
 		}
 	}
@@ -140,7 +146,7 @@
 				<p class="text-sm text-muted-foreground">
 					{states.length} saved state{states.length !== 1 ? 's' : ''}
 				</p>
-				<Button onclick={handleClearAll} variant="destructive" size="sm">
+				<Button onclick={openClearAllDialog} variant="destructive" size="sm">
 					🗑️ Clear All
 				</Button>
 			</div>
@@ -227,7 +233,7 @@
 									📂 Load
 								</Button>
 								<Button
-									onclick={() => handleDelete(state.id!)}
+									onclick={() => openDeleteDialog(state.id!)}
 									size="sm"
 									variant="outline"
 								>
@@ -291,4 +297,36 @@
 			{/each}
 		</div>
 	{/if}
+
+	<!-- Delete Single State Dialog -->
+	<AlertDialog.Root bind:open={showDeleteDialog}>
+		<AlertDialog.Content>
+			<AlertDialog.Header>
+				<AlertDialog.Title>Delete State</AlertDialog.Title>
+				<AlertDialog.Description>
+					Are you sure you want to delete this state? This action cannot be undone.
+				</AlertDialog.Description>
+			</AlertDialog.Header>
+			<AlertDialog.Footer>
+				<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+				<AlertDialog.Action onclick={confirmDelete}>Delete</AlertDialog.Action>
+			</AlertDialog.Footer>
+		</AlertDialog.Content>
+	</AlertDialog.Root>
+
+	<!-- Clear All States Dialog -->
+	<AlertDialog.Root bind:open={showClearAllDialog}>
+		<AlertDialog.Content>
+			<AlertDialog.Header>
+				<AlertDialog.Title>Clear All States</AlertDialog.Title>
+				<AlertDialog.Description>
+					Are you sure you want to delete ALL saved states? This action cannot be undone and will remove all your saved history.
+				</AlertDialog.Description>
+			</AlertDialog.Header>
+			<AlertDialog.Footer>
+				<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+				<AlertDialog.Action onclick={confirmClearAll}>Delete All</AlertDialog.Action>
+			</AlertDialog.Footer>
+		</AlertDialog.Content>
+	</AlertDialog.Root>
 </div>

@@ -2,7 +2,8 @@
 
 **Start here!** This is your TL;DR for continuing the v0.2 editor work.
 
-**Latest Update:** Session 1 complete - E2E tests at 100% (16/16) ✅
+**Latest Update:** Session 1 complete - E2E tests at 100% (16/16) ✅  
+**Chunking Update:** Structure-preserving chunking implemented ✅
 
 ---
 
@@ -110,6 +111,15 @@ const processBtn = page.getByTestId('process-button');
 - **After:** 16/16 passing (100%)
 - **Runtime:** 26.5s
 
+### Chunking Behavior
+**Structure-preserving chunking** now implemented:
+- ✅ Preserves document structure (headers, sections)
+- ✅ Only chunks content within marked segments
+- ✅ Multiple sections per document supported
+- ✅ Each section maintains independent segment numbering
+- 📄 See: `CHUNKING-BEHAVIOR.md` for details
+- 📄 Test with: `test-samples/structured-document.txt`
+
 ---
 
 ## 🧠 Technical Context
@@ -141,7 +151,8 @@ const ctx = getEditorContext();
 
 1. ~~Highlighting not visually tested~~ 🔶 Ready to test (docs prepared)
 2. ~~Some E2E selectors need adjustment~~ ✅ Fixed (100% pass rate)
-3. Unit tests need vitest browser mode (still TODO)
+3. ~~Chunking loses document structure~~ ✅ Fixed (structure-preserving)
+4. Unit tests need vitest browser mode (still TODO)
 
 ---
 
@@ -178,4 +189,8 @@ const ctx = getEditorContext();
 
 **Ready? Continue with highlighting visual test!** 🚀
 
-See `PHASE2-SESSION1-PROGRESS.md` for what was completed and `v0.2-PHASE2-READY.md` for detailed breakdown.
+See:
+- `PHASE2-SESSION1-PROGRESS.md` - What was completed
+- `CHUNKING-BEHAVIOR.md` - New chunking behavior details
+- `test-samples/structured-document.txt` - Test document
+- `v0.2-PHASE2-READY.md` - Detailed breakdown

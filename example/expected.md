@@ -19,9 +19,7 @@
 I met Sarah on a Tuesday. Not through an app—at a coffee shop, like people used to. She was reading a book with a coffee-stained cover, and when our eyes met, she smiled like she'd been expecting me. I know how that sounds.  Like something from a romance novel. But that's exactly how it felt. I sat down two tables away, pretending to work on my laptop while sneaking glances.
 
 **Segment 2:** (477 characters)
-After twenty minutes, she walked over and said, "You're not actually working.  Your screen's been on the same page this whole time."
-
-I laughed, caught. "Guilty.  I'm Tom." "Sarah," she said, extending her hand. Her grip was firm, confident. We talked for three hours straight. The barista had to kick us out at closing. We exchanged numbers in the parking lot under flickering streetlights. As she drove away, I remember thinking this was the beginning of something important.
+After twenty minutes, she walked over and said, "You're not actually working.  Your screen's been on the same page this whole time." I laughed, caught. "Guilty.  I'm Tom." "Sarah," she said, extending her hand. Her grip was firm, confident. We talked for three hours straight. The barista had to kick us out at closing. We exchanged numbers in the parking lot under flickering streetlights. As she drove away, I remember thinking this was the beginning of something important.
 
 **Segment 3:** (424 characters)
 I had no idea how right I was. Or how wrong everything would go. That first night, she texted me: "Thanks for making my Tuesday less ordinary."

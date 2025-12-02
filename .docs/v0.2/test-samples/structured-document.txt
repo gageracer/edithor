@@ -1,0 +1,82 @@
+# My Writing Document
+
+This is the introduction to my document. It should remain untouched during processing.
+
+## Story 1: The Beginning
+
+This is some context before the segments. It should also remain untouched.
+
+### Voice Script Segments
+
+**Segment 1:** (487 characters)
+This is the first segment of Story 1. It contains dialogue and narration that needs to be chunked if it exceeds the character limit. The chunking should only affect this content, not the segment marker or the document structure. This text will be broken into smaller chunks while preserving the segment marker and structure.
+
+**Segment 2:** (523 characters)
+Here is the second segment. This one might also be quite long and need chunking. The system should identify this segment, extract its content, chunk it if necessary, and then reconstruct the document with the chunked version in place. All the headers and other sections should remain exactly as they were in the original document.
+
+**Segment 3:** (412 characters)
+The third segment continues the story. Each segment is independent and should be chunked based on the max character limit setting. If this segment is under the limit, it might not need chunking at all. But if it's over, it should be split into multiple chunks while keeping the segment marker intact.
+
+### Storyboard Images
+
+Image 1: Scene description here
+Image 2: Another scene
+Image 3: Final scene
+
+This is content after the segments section. It should not be touched.
+
+---
+
+## Story 2: The Middle
+
+Here's another story with its own segment section.
+
+### Voice Script Segments
+
+**Segment 1:** (356 characters)
+This is the first segment of Story 2. Notice how the segment numbering starts over at 1. Each story section should maintain its own independent segment numbering. The chunking algorithm should process this section separately from Story 1.
+
+**Segment 2:** (298 characters)
+Second segment of Story 2. This demonstrates that multiple sections can exist in the same document, each with their own start and end markers, and each will be processed independently while preserving the overall document structure.
+
+### Storyboard Images
+
+Image 1: Story 2 scene 1
+Image 2: Story 2 scene 2
+
+More content after Story 2 segments.
+
+---
+
+## Story 3: The End
+
+Final story in the document.
+
+### Voice Script Segments
+
+**Segment 1:** (445 characters)
+Final story segment 1. This demonstrates that you can have multiple story sections throughout a long document, and the chunking system will correctly identify all of them, process each one independently, and reconstruct the entire document with all sections intact. Only the segment contents are modified.
+
+**Segment 2:** (267 characters)
+Final segment. After processing, you should see this document with the same structure, same headers, same non-segment content, but with the segment contents potentially broken into chunks if they exceeded the character limit.
+
+### Storyboard Images
+
+Image 1: Final scene
+
+## Conclusion
+
+This conclusion should also remain untouched. The document structure is preserved!
+
+## Expected Behavior
+
+When you process this document with a character limit (e.g., 490 characters):
+
+1. **Introduction and headers stay intact** - All markdown headers and non-segment text remains
+2. **Story 1 segments are chunked** - Only content within segments between "### Voice Script Segments" and "### Storyboard Images"
+3. **Story 2 segments are chunked independently** - Each story maintains its own context
+4. **Story 3 segments are chunked independently** - Same as above
+5. **Storyboard sections remain unchanged** - These are outside the segment boundaries
+6. **Conclusion stays intact** - Everything outside marked sections is preserved
+
+The result should look similar to this document, but with long segment contents broken into "Chunk 1:", "Chunk 2:", etc. within each segment.

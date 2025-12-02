@@ -115,39 +115,175 @@ export class EditorContext {
 	async processChunking() {
 		this.isProcessing = true;
 		try {
-			// Extract segments and process each one
-			const segments = this.extractSegments(this.currentText);
-
-			if (segments.length === 0) {
-				// No segments found, treat as plain text
-				const result = chunkText(this.currentText, {
-					maxCharacters: this.maxCharacters,
-					fallbackSplit: true
-				});
-				this.resultText = this.formatChunks(result.chunks);
-			} else {
-				// Process each segment individually
-				const allChunks: Chunk[] = [];
-
-				for (const segment of segments) {
-					const result = chunkText(segment.content, {
-						maxCharacters: this.maxCharacters,
-						fallbackSplit: true
-					});
-
-					// Add chunks from this segment
-					allChunks.push(...result.chunks);
-				}
-
-				this.resultText = this.formatChunks(allChunks);
-			}
-
+			// Process document preserving structure
+			this.resultText = this.processDocumentWithStructure(this.currentText);
 			await this.saveToHistory('Processed');
 		} catch (error) {
 			console.error('Processing failed:', error);
 		} finally {
 			this.isProcessing = false;
 		}
+	}
+
+	private processDocumentWithStructure(text: string): string {
+		// Find sections bounded by start/end markers
+		const sections = this.findSections(text);
+
+		if (sections.length === 0) {
+			// No sections found, fallback to chunking entire text
+			const result = chunkText(text, {
+				maxCharacters: this.maxCharacters,
+				fallbackSplit: true
+			});
+			return this.formatChunks(result.chunks);
+		}
+
+		// Rebuild document with processed sections
+		let result = '';
+		let lastIndex = 0;
+
+		for (const section of sections) {
+			// Add everything before this section
+			result += text.slice(lastIndex, section.start);
+
+			// Process this section
+			result += this.processSectionContent(text.slice(section.start, section.end));
+
+			lastIndex = section.end;
+		}
+
+		// Add any remaining content after last section
+		result += text.slice(lastIndex);
+
+		return result;
+	}
+
+	private findSections(text: string): Array<{ start: number; end: number; markerPair: MarkerPair }> {
+		const sections: Array<{ start: number; end: number; markerPair: MarkerPair }> = [];
+
+		for (const mp of this.markerPairs) {
+			if (!mp.startMarker || !mp.endMarker) continue;
+
+			let searchPos = 0;
+			while (searchPos < text.length) {
+				const startIdx = text.indexOf(mp.startMarker, searchPos);
+				if (startIdx === -1) break;
+
+				const endIdx = text.indexOf(mp.endMarker, startIdx + mp.startMarker.length);
+				if (endIdx === -1) {
+					// No end marker, take rest of document
+					sections.push({
+						start: startIdx,
+						end: text.length,
+						markerPair: mp
+					});
+					break;
+				}
+
+				sections.push({
+					start: startIdx,
+					end: endIdx,
+					markerPair: mp
+				});
+
+				searchPos = endIdx + mp.endMarker.length;
+			}
+		}
+
+		// Sort sections by start position
+		sections.sort((a, b) => a.start - b.start);
+		return sections;
+	}
+
+	private processSectionContent(sectionText: string): string {
+		// Find all segment markers in this section
+		const segmentMatches: Array<{ index: number; marker: string; pattern: RegExp }> = [];
+
+		for (const mp of this.markerPairs) {
+			if (!mp.pattern) continue;
+
+			const matches = [...sectionText.matchAll(mp.pattern)];
+			for (const match of matches) {
+				if (match.index !== undefined) {
+					segmentMatches.push({
+						index: match.index,
+						marker: match[0],
+						pattern: mp.pattern
+					});
+				}
+			}
+		}
+
+		if (segmentMatches.length === 0) {
+			// No segments found in this section, return as-is
+			return sectionText;
+		}
+
+		// Sort by position
+		segmentMatches.sort((a, b) => a.index - b.index);
+
+		// Extract content before first segment
+		const preFirstSegmentContent = sectionText.slice(0, segmentMatches[0].index);
+
+		// Collect all segment contents into one continuous text
+		const allSegmentContents: string[] = [];
+
+		for (let i = 0; i < segmentMatches.length; i++) {
+			const currentMatch = segmentMatches[i];
+			const nextMatch = segmentMatches[i + 1];
+
+			// Extract segment content (from after marker to next marker or end)
+			const contentStart = currentMatch.index + currentMatch.marker.length;
+			const contentEnd = nextMatch ? nextMatch.index : sectionText.length;
+			const segmentContent = sectionText.slice(contentStart, contentEnd).trim();
+
+			if (segmentContent) {
+				allSegmentContents.push(segmentContent);
+			}
+		}
+
+		// Combine all segment contents with double newline separators
+		const combinedContent = allSegmentContents.join('\n\n');
+
+		// Chunk the combined content
+		const chunkResult = chunkText(combinedContent, {
+			maxCharacters: this.maxCharacters,
+			fallbackSplit: true
+		});
+
+		// Extract any remaining content after the last segment
+		const lastMatch = segmentMatches[segmentMatches.length - 1];
+		const lastContentEnd = sectionText.length;
+		const afterLastSegmentContent = sectionText.slice(
+			lastMatch.index + lastMatch.marker.length
+		).trim();
+
+		// Find where the last segment content ends
+		let postSegmentContent = '';
+		if (allSegmentContents.length > 0) {
+			const lastSegmentContent = allSegmentContents[allSegmentContents.length - 1];
+			const lastSegmentEndPos = sectionText.lastIndexOf(lastSegmentContent);
+			if (lastSegmentEndPos !== -1) {
+				postSegmentContent = sectionText.slice(lastSegmentEndPos + lastSegmentContent.length);
+			}
+		}
+
+		// Rebuild with sequential numbering
+		let result = preFirstSegmentContent;
+		let segmentNumber = 1;
+
+		for (const chunk of chunkResult.chunks) {
+			const content = chunk.content.trim();
+			result += `**Segment ${segmentNumber}:** (${content.length} characters)\n`;
+			result += content;
+			result += '\n\n';
+			segmentNumber++;
+		}
+
+		// Add any remaining content after all segments
+		result += postSegmentContent;
+
+		return result;
 	}
 
 	switchView(mode: 'original' | 'result') {
@@ -201,51 +337,7 @@ export class EditorContext {
 		return count;
 	}
 
-	private extractSegments(text: string): Array<{ content: string; start: number; end: number }> {
-		const segments: Array<{ content: string; start: number; end: number; marker: string }> = [];
 
-		// Find all segment markers
-		for (const mp of this.markerPairs) {
-			if (!mp.pattern) continue;
-
-			const matches = [...text.matchAll(mp.pattern)];
-			for (const match of matches) {
-				if (match.index !== undefined) {
-					segments.push({
-						content: '',
-						start: match.index,
-						end: match.index + match[0].length,
-						marker: match[0]
-					});
-				}
-			}
-		}
-
-		// Sort by position
-		segments.sort((a, b) => a.start - b.start);
-
-		// Extract content between markers
-		const results: Array<{ content: string; start: number; end: number }> = [];
-		for (let i = 0; i < segments.length; i++) {
-			const currentMarker = segments[i];
-			const nextMarker = segments[i + 1];
-
-			const contentStart = currentMarker.end;
-			const contentEnd = nextMarker ? nextMarker.start : text.length;
-
-			const content = text.slice(contentStart, contentEnd).trim();
-
-			if (content) {
-				results.push({
-					content,
-					start: contentStart,
-					end: contentEnd
-				});
-			}
-		}
-
-		return results;
-	}
 
 	private calculateHighlights(text: string, markerPairs: MarkerPair[]): HighlightRange[] {
 		const ranges: HighlightRange[] = [];
