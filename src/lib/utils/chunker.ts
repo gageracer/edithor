@@ -235,8 +235,11 @@ export function chunkText(text: string, settings: ChunkSettings): ChunkResult {
 					}
 					continue;
 				} else {
+					const preview = trimmedSentence.length > 200
+						? `${trimmedSentence.slice(0, 100)}...${trimmedSentence.slice(-100)}`
+						: trimmedSentence;
 					throw new Error(
-						`Text contains continuous content (${trimmedSentence.length} characters) without sentence boundaries that exceeds the limit of ${maxCharacters} characters. Please add punctuation or increase the character limit.`
+						`Text contains continuous content (${trimmedSentence.length} characters) without sentence boundaries that exceeds the limit of ${maxCharacters} characters. Please add punctuation or increase the character limit.\n\nContent: "${preview}"`
 					);
 				}
 			}

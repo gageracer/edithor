@@ -222,61 +222,61 @@ export class EditorContext {
 		// Sort by position
 		segmentMatches.sort((a, b) => a.index - b.index);
 
-		// Extract content before first segment
+		// Extract content before first segment marker
 		const preFirstSegmentContent = sectionText.slice(0, segmentMatches[0].index);
 
-		// Collect all segment contents into one continuous text
-		const allSegmentContents: string[] = [];
+		// Find where segmented content starts (after first marker)
+		const firstMarker = segmentMatches[0];
+		const segmentedContentStart = firstMarker.index + firstMarker.marker.length;
 
-		for (let i = 0; i < segmentMatches.length; i++) {
-			const currentMatch = segmentMatches[i];
-			const nextMatch = segmentMatches[i + 1];
+		// Find where segmented content ends (look for separator or end of section)
+		let segmentedContentEnd = sectionText.length;
+		const remainingText = sectionText.slice(segmentedContentStart);
+		const separatorMatch = remainingText.search(/\n\n---\n|^---\n|^###\s/m);
 
-			// Extract segment content (from after marker to next marker, separator, or end)
-			const contentStart = currentMatch.index + currentMatch.marker.length;
-			let contentEnd = nextMatch ? nextMatch.index : sectionText.length;
-
-			// Find the earliest occurrence of a separator or section header after this segment
-			const remainingText = sectionText.slice(contentStart, contentEnd);
-			const separatorMatch = remainingText.match(/\n\n---\n|^---\n|^###\s/m);
-
-			if (separatorMatch && separatorMatch.index !== undefined) {
-				// Stop at the separator
-				contentEnd = contentStart + separatorMatch.index;
-			}
-
-			const segmentContent = sectionText.slice(contentStart, contentEnd).trim();
-
-			if (segmentContent) {
-				allSegmentContents.push(segmentContent);
-			}
+		if (separatorMatch !== -1) {
+			segmentedContentEnd = segmentedContentStart + separatorMatch;
 		}
 
-		// Combine all segment contents with double newline separators
-		const combinedContent = allSegmentContents.join('\n\n');
+		// Extract ALL content between start and end as ONE text block
+		let allSegmentedContent = sectionText.slice(segmentedContentStart, segmentedContentEnd).trim();
 
-		// Chunk the combined content
-		const chunkResult = chunkText(combinedContent, {
+		// Remove all old segment markers from the extracted content
+		for (const mp of this.markerPairs) {
+			if (!mp.pattern) continue;
+			allSegmentedContent = allSegmentedContent.replace(mp.pattern, '');
+		}
+
+		// Normalize the content:
+		// - Keep paragraph breaks (double newlines) as sentence boundaries
+		// - Collapse single newlines within paragraphs to spaces
+		allSegmentedContent = allSegmentedContent
+			.split(/\n\n+/)            // Split on paragraph breaks (2+ newlines)
+			.map(para => para
+				.replace(/\n/g, ' ')   // Within each paragraph, replace newlines with space
+				.replace(/\s+/g, ' ')  // Collapse multiple spaces
+				.trim()
+			)
+			.filter(para => para.length > 0)  // Remove empty paragraphs
+			.map(para => {
+				// Add period if paragraph doesn't end with sentence punctuation
+				if (!/[.!?]$/.test(para)) {
+					return para + '.';
+				}
+				return para;
+			})
+			.join(' ')                 // Join paragraphs with space (they already have punctuation)
+			.trim();
+
+		// Extract content after segmented section (if any)
+		// Don't trim to preserve spacing before end marker
+		const postSegmentContent = sectionText.slice(segmentedContentEnd);
+
+		// Chunk the entire segmented content as one block
+		const chunkResult = chunkText(allSegmentedContent, {
 			maxCharacters: this.maxCharacters,
-			fallbackSplit: true
+			fallbackSplit: false
 		});
-
-		// Extract any remaining content after the last segment
-		const lastMatch = segmentMatches[segmentMatches.length - 1];
-		const lastContentEnd = sectionText.length;
-		const afterLastSegmentContent = sectionText.slice(
-			lastMatch.index + lastMatch.marker.length
-		).trim();
-
-		// Find where the last segment content ends
-		let postSegmentContent = '';
-		if (allSegmentContents.length > 0) {
-			const lastSegmentContent = allSegmentContents[allSegmentContents.length - 1];
-			const lastSegmentEndPos = sectionText.lastIndexOf(lastSegmentContent);
-			if (lastSegmentEndPos !== -1) {
-				postSegmentContent = sectionText.slice(lastSegmentEndPos + lastSegmentContent.length);
-			}
-		}
 
 		// Rebuild with sequential numbering
 		// Always use **Segment N:** format in output (with asterisks)
@@ -285,17 +285,21 @@ export class EditorContext {
 
 		for (const chunk of chunkResult.chunks) {
 			const content = chunk.content.trim();
-			// Remove ALL blank lines within content - replace paragraph breaks with single space
-			// This makes each segment one continuous paragraph for easy double-click selection
-			const cleanContent = content.replace(/\n\n+/g, ' ').replace(/\n/g, ' ').trim();
-			result += `**Segment ${segmentNumber}:** (${cleanContent.length} characters)\n\n`;
-			result += cleanContent;
+			// Content is already normalized from Step 4, use chunk.characterCount for accuracy
+			result += `**Segment ${segmentNumber}:** (${chunk.characterCount} characters)\n\n`;
+			result += content;
 			result += '\n\n';
 			segmentNumber++;
 		}
 
-		// Add any remaining content after all segments
-		result += postSegmentContent;
+		// Add any remaining content after all segments (only if there is content)
+		if (postSegmentContent && postSegmentContent.trim().length > 0) {
+			// Ensure proper spacing before the end marker
+			if (!result.endsWith('\n\n')) {
+				result += '\n\n';
+			}
+			result += postSegmentContent.trim();
+		}
 
 		return result;
 	}
