@@ -325,13 +325,18 @@ export class EditorContext {
 	updateMarkerPair(id: number, updates: Partial<MarkerPair>) {
 		const index = this.markerPairs.findIndex((mp) => mp.id === id);
 		if (index >= 0) {
-			this.markerPairs[index] = {
-				...this.markerPairs[index],
-				...updates,
-				pattern: updates.patternTemplate
-					? this.createPattern(updates.patternTemplate)
-					: this.markerPairs[index].pattern
-			};
+			// Create new array to trigger reactivity in Svelte 5
+			this.markerPairs = this.markerPairs.map((mp, i) =>
+				i === index
+					? {
+							...mp,
+							...updates,
+							pattern: updates.patternTemplate
+								? this.createPattern(updates.patternTemplate)
+								: mp.pattern
+						}
+					: mp
+			);
 		}
 	}
 

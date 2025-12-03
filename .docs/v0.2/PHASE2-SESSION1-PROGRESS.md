@@ -178,7 +178,7 @@ await expect(wordsValue).toHaveText('0');
 
 ### Visual Test Checklist (Next Session)
 
-- [ ] Open `/chunking-v2` in browser
+- [ ] Open `/chunking` in browser
 - [ ] Paste sample text from `test-samples/segment-sample.txt`
 - [ ] Verify 5 blue highlights appear
 - [ ] Toggle dark mode and verify highlighting
@@ -249,7 +249,7 @@ All previously failing tests are now passing. The test infrastructure is solid a
 ## 🚀 Next Session Plan
 
 ### Immediate (5-10 min)
-1. Open `/chunking-v2` in browser
+1. Open `/chunking` in browser
 2. Paste sample text with segments
 3. Verify highlighting appears correctly
 4. Screenshot and document results

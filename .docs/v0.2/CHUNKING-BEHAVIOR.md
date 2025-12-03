@@ -333,7 +333,7 @@ If sections overlap:
 
 ### Manual Test
 
-1. Open `/chunking-v2`
+1. Open `/chunking`
 2. Paste content from `.docs/v0.2/test-samples/structured-document.txt`
 3. Set character limit (e.g., 490)
 4. Click "Process Chunks"

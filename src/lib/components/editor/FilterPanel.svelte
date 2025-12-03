@@ -61,6 +61,9 @@
 								placeholder="### Voice Script Segments"
 								class="w-full"
 								data-testid="start-marker-{pair.id}"
+								oninput={() => ctx.updateMarkerPair(pair.id, {
+									startMarker: pair.startMarker
+								})}
 							/>
 						</div>
 
@@ -72,6 +75,9 @@
 								placeholder="### Storyboard Images"
 								class="w-full"
 								data-testid="end-marker-{pair.id}"
+								oninput={() => ctx.updateMarkerPair(pair.id, {
+									endMarker: pair.endMarker
+								})}
 							/>
 						</div>
 
@@ -83,7 +89,7 @@
 								placeholder="**Segment %n:** (%d characters)"
 								class="w-full"
 								data-testid="pattern-template-{pair.id}"
-								onchange={() => ctx.updateMarkerPair(pair.id, {
+								oninput={() => ctx.updateMarkerPair(pair.id, {
 									patternTemplate: pair.patternTemplate
 								})}
 							/>
@@ -91,6 +97,25 @@
 								Use %n for number, %d for character count, %o&#123;...&#125; for optional parts (e.g., %o&#123;**&#125;Segment %n:%o&#123;**&#125;)
 							</p>
 						</div>
+
+						<!-- Segment Detection Feedback -->
+						{#if ctx.viewMode === 'original' && ctx.currentText && pair.pattern}
+							<div class="rounded-md bg-blue-50 dark:bg-blue-950/30 px-3 py-2 text-xs border border-blue-200 dark:border-blue-800">
+								<div class="flex items-center gap-2">
+									<span class="text-blue-700 dark:text-blue-300">
+										✓ Detecting {ctx.highlightRanges.filter(r => r.class === 'cm-segment-highlight').length} segment(s) in editor
+									</span>
+								</div>
+							</div>
+						{:else if ctx.viewMode === 'original' && ctx.currentText && !pair.pattern}
+							<div class="rounded-md bg-yellow-50 dark:bg-yellow-950/30 px-3 py-2 text-xs border border-yellow-200 dark:border-yellow-800">
+								<div class="flex items-center gap-2">
+									<span class="text-yellow-700 dark:text-yellow-300">
+										⚠ Invalid pattern template
+									</span>
+								</div>
+							</div>
+						{/if}
 
 						{#if ctx.markerPairs.length > 1}
 							<Button

@@ -10,7 +10,7 @@
 ## 🎯 What Was Done
 
 ### Phase 1 (Complete)
-✅ Built full split-panel editor at `/chunking-v2`  
+✅ Built full split-panel editor at `/chunking`  
 ✅ CodeMirror integration with Svelte 5 runes  
 ✅ Context-based state management  
 ✅ 6 components + E2E tests  
@@ -34,7 +34,7 @@
 ```
 src/lib/contexts/editorContext.svelte.ts    ← State management
 src/lib/components/editor/                  ← All UI components
-src/routes/chunking-v2/+page.svelte         ← Test route
+src/routes/chunking/+page.svelte         ← Test route
 e2e/editor-v2.spec.ts                       ← E2E tests (16/16 ✅)
 .docs/v0.2-EDITOR_REDESIGN.md               ← Full architecture
 .docs/v0.2-PHASE1-COMPLETE.md               ← What was built
@@ -85,7 +85,7 @@ e2e/editor-v2.spec.ts                       ← E2E tests (16/16 ✅)
 ```bash
 # Start dev server
 bun run dev
-# Visit: http://localhost:5173/chunking-v2
+# Visit: http://localhost:5173/chunking
 
 # Run tests
 bun run test:e2e -- editor-v2
@@ -166,7 +166,7 @@ const ctx = getEditorContext();
 2. Verify everything works:
    ```bash
    bun run dev
-   # Test at /chunking-v2
+   # Test at /chunking
    ```
 
 3. Pick first task from Week 1 priorities

@@ -110,7 +110,7 @@
 
 2. **Open the editor:**
    ```
-   http://localhost:5173/chunking-v2
+   http://localhost:5173/chunking
    ```
 
 3. **Load test file:**

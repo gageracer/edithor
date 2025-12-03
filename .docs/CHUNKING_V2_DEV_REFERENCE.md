@@ -2,7 +2,7 @@
 
 ## 🎯 Quick Summary
 
-The chunking functionality has been migrated to `/chunking-v2` route. The v2 editor is now the main interface with improved chunking algorithm (sentence preservation, hard character limits, section-based processing).
+The chunking functionality has been migrated to `/chunking` route. The v2 editor is now the main interface with improved chunking algorithm (sentence preservation, hard character limits, section-based processing).
 
 ---
 
@@ -12,7 +12,7 @@ The chunking functionality has been migrated to `/chunking-v2` route. The v2 edi
 ```
 src/routes/+page.svelte                              # Home page - removed refactoring card
 src/routes/chunking/+page.svelte                     # Old route - now redirects to v2
-src/routes/chunking-v2/+page.svelte                  # Updated metadata/title
+src/routes/chunking/+page.svelte                  # Updated metadata/title
 src/lib/components/editor/ChunkEditorLayout.svelte   # Added header with navigation
 ```
 
@@ -30,8 +30,8 @@ src/lib/components/editor/ChunkEditorLayout.svelte   # Added header with navigat
 | URL            | Destination        | Status       |
 |----------------|-------------------|--------------|
 | `/`            | Home page         | ✅ Updated   |
-| `/chunking-v2` | Main editor (v2)  | ✅ Primary   |
-| `/chunking`    | → `/chunking-v2`  | 🔄 Redirect  |
+| `/chunking` | Main editor (v2)  | ✅ Primary   |
+| `/chunking`    | → `/chunking`  | 🔄 Redirect  |
 | `/refactoring` | Refactoring tool  | 🔒 Hidden    |
 | `/history`     | History view      | 🔒 Hidden    |
 
@@ -97,7 +97,7 @@ bun run preview
 
 ### Manual Test Flow
 1. Navigate to `http://localhost:5173/`
-2. Click "Start Chunking" → should go to `/chunking-v2`
+2. Click "Start Chunking" → should go to `/chunking`
 3. Verify header shows "Text Chunking ✂️" + back link
 4. Load `example/writing1.md`
 5. Configure:
@@ -235,7 +235,7 @@ curl -I http://localhost:5173/chunking
 
 # Using browser
 # 1. Open /chunking
-# 2. Check address bar changes to /chunking-v2
+# 2. Check address bar changes to /chunking
 # 3. Check Network tab shows navigation
 ```
 
@@ -277,7 +277,7 @@ e2e/sentence-integrity.spec.ts         # Sentence preservation tests
 - [ ] Build succeeds (`bun run build`)
 - [ ] No new TypeScript errors introduced
 - [ ] All routes accessible
-- [ ] Redirect works (`/chunking` → `/chunking-v2`)
+- [ ] Redirect works (`/chunking` → `/chunking`)
 - [ ] Home page shows single card
 - [ ] v2 editor has header with back link
 - [ ] Test with real content (writing1.md)

@@ -14,7 +14,7 @@ Verify that CodeMirror decorations properly highlight segment markers in the edi
 
 ## 📋 Test Sample Text
 
-Use this sample text for visual testing. Paste it into the editor at `/chunking-v2`:
+Use this sample text for visual testing. Paste it into the editor at `/chunking`:
 
 ```markdown
 ### Voice Script Segments
@@ -71,7 +71,7 @@ to content of any length while maintaining consistent visual feedback.
 ## 🔍 Visual Inspection Checklist
 
 ### Light Mode
-- [ ] Open `/chunking-v2` in light mode
+- [ ] Open `/chunking` in light mode
 - [ ] Paste sample text into left editor panel
 - [ ] Verify 4 blue highlights appear on segment markers
 - [ ] Check highlight background is light blue
@@ -203,7 +203,7 @@ highlightRanges = $derived.by((): HighlightRange[] => {
 **Preparation Status:**
 - ✅ Sample text created (`.docs/v0.2/test-samples/segment-sample.txt`)
 - ✅ Test documentation complete
-- ✅ Dev server running at `http://localhost:5173/chunking-v2`
+- ✅ Dev server running at `http://localhost:5173/chunking`
 - ✅ All E2E tests passing (16/16)
 - ⏳ Visual verification pending (manual browser test)
 
@@ -224,7 +224,7 @@ _To be added after manual test_
 ## 🚀 Next Steps
 
 ### Immediate (5 min)
-1. **Open browser** at `http://localhost:5173/chunking-v2` (already running)
+1. **Open browser** at `http://localhost:5173/chunking` (already running)
 2. **Copy sample text** from `.docs/v0.2/test-samples/segment-sample.txt`
 3. **Paste into editor** (left panel)
 4. **Verify highlighting:**
@@ -255,7 +255,7 @@ _To be added after manual test_
 
 - Implementation: `src/lib/components/editor/CodeMirrorEditor.svelte`
 - Context logic: `src/lib/contexts/editorContext.svelte.ts`
-- Test route: `src/routes/chunking-v2/+page.svelte`
+- Test route: `src/routes/chunking/+page.svelte`
 - Architecture: `.docs/v0.2-EDITOR_REDESIGN.md`
 
 ---

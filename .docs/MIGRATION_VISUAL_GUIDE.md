@@ -40,7 +40,7 @@
             │  • Export formats            │
             │                              │
             │  [Start Chunking]  ───>      │
-            │     /chunking-v2             │
+            │     /chunking             │
             └──────────────────────────────┘
 ```
 
@@ -69,12 +69,12 @@
 │                                                             │
 │                   Redirecting to new editor...              │
 │                                                             │
-│                   → /chunking-v2                            │
+│                   → /chunking                            │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-#### NEW `/chunking-v2` (main interface)
+#### NEW `/chunking` (main interface)
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  Text Chunking ✂️                        ← Back to Home     │
@@ -112,7 +112,7 @@
          │                │                │
          ↓                ↓                ↓
     OLD LINK         NEW LINK         DIRECT URL
-   /chunking       /chunking-v2      /refactoring
+   /chunking       /chunking      /refactoring
          │                │                │
          ↓                │                ↓
    ┌──────────┐          │           ┌──────────┐
@@ -149,10 +149,10 @@ Home (/)
 ### AFTER
 ```
 Home (/)
-└─ Chunking (/chunking-v2) ───> v2 editor (main)
+└─ Chunking (/chunking) ───> v2 editor (main)
     
 Hidden (accessible via direct URL):
-├─ /chunking ───> redirects to /chunking-v2
+├─ /chunking ───> redirects to /chunking
 ├─ /refactoring ───> still works
 └─ /history ───> still works
 ```
@@ -164,7 +164,7 @@ Hidden (accessible via direct URL):
 ### 1. Home Page Simplification
 - ❌ Removed: Segment Refactoring card
 - ✅ Changed: Single centered card instead of 2-column grid
-- ✅ Updated: Link points to `/chunking-v2`
+- ✅ Updated: Link points to `/chunking`
 
 ### 2. Editor Header (NEW)
 ```
@@ -189,7 +189,7 @@ Hidden (accessible via direct URL):
    → Sees clean home page with ONE clear option
 
 2. Clicks "Start Chunking"
-   → Goes directly to /chunking-v2
+   → Goes directly to /chunking
 
 3. Sees editor with header
    → "Text Chunking ✂️" + "← Back to Home" link

@@ -132,7 +132,7 @@ Distribution:
 To verify the fix works:
 
 1. Start dev server: `bun run dev`
-2. Navigate to `/chunking-v2`
+2. Navigate to `/chunking`
 3. Paste content from `example/writing1.md`
 4. Set max characters to 490
 5. Click "Process"
@@ -187,7 +187,7 @@ bun run test:e2e
 
 # Manual test with sample file
 # 1. Start server: bun run dev
-# 2. Open: http://localhost:5173/chunking-v2
+# 2. Open: http://localhost:5173/chunking
 # 3. Load: example/writing1.md
 # 4. Process and verify chunk sizes
 ```

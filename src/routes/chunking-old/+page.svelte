@@ -3,7 +3,7 @@
 	import { goto } from '$app/navigation';
 
 	onMount(() => {
-		goto('/chunking-v2', { replaceState: true });
+		goto('/chunking', { replaceState: true });
 	});
 </script>
 

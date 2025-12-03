@@ -5,7 +5,7 @@
 
 ## Overview
 
-Migrated the chunking functionality to the v2 route (`/chunking-v2`) and hid the segment refactoring feature from the main navigation. The v2 editor with the improved chunking algorithm (sentence preservation fix) is now the primary interface.
+Migrated the chunking functionality to the v2 route (`/chunking`) and hid the segment refactoring feature from the main navigation. The v2 editor with the improved chunking algorithm (sentence preservation fix) is now the primary interface.
 
 ---
 
@@ -16,7 +16,7 @@ Migrated the chunking functionality to the v2 route (`/chunking-v2`) and hid the
 **Changes:**
 - Removed the "Segment Refactoring" card completely
 - Changed grid layout from 2 columns to 1 column centered (max-width)
-- Updated "Text Chunking" card link from `/chunking` → `/chunking-v2`
+- Updated "Text Chunking" card link from `/chunking` → `/chunking`
 - Removed unused `RefreshCw` icon import
 
 **Result:** Clean, focused home page with only the main chunking feature visible.
@@ -24,13 +24,13 @@ Migrated the chunking functionality to the v2 route (`/chunking-v2`) and hid the
 ### 2. Old Chunking Route Redirect (`src/routes/chunking/+page.svelte`)
 
 **Changes:**
-- Replaced entire page with automatic redirect to `/chunking-v2`
+- Replaced entire page with automatic redirect to `/chunking`
 - Uses `onMount()` + `goto()` with `replaceState: true` for seamless navigation
 - Shows "Redirecting..." message during transition
 
 **Result:** Any old bookmarks or links to `/chunking` automatically redirect to v2.
 
-### 3. Updated V2 Route Metadata (`src/routes/chunking-v2/+page.svelte`)
+### 3. Updated V2 Route Metadata (`src/routes/chunking/+page.svelte`)
 
 **Changes:**
 - Updated page title from "Edithor v0.2 - New Editor" → "Text Chunking - Edithor"
@@ -57,7 +57,7 @@ The following routes still exist but are **not linked** from the main navigation
 
 - `/refactoring` - Segment refactoring tool (still functional, just hidden)
 - `/history` - History view (still functional, just hidden)
-- `/chunking` - Redirects to `/chunking-v2`
+- `/chunking` - Redirects to `/chunking`
 
 These can be accessed directly via URL if needed for debugging or specialized use cases.
 
@@ -67,8 +67,8 @@ These can be accessed directly via URL if needed for debugging or specialized us
 
 ```
 /                    → Home page (single "Text Chunking" card)
-/chunking-v2         → Main chunking interface (v2 editor)
-/chunking            → Auto-redirects to /chunking-v2
+/chunking         → Main chunking interface (v2 editor)
+/chunking            → Auto-redirects to /chunking
 /refactoring         → Hidden (not linked from home)
 /history             → Hidden (not linked from home)
 ```
@@ -79,7 +79,7 @@ These can be accessed directly via URL if needed for debugging or specialized us
 
 1. User lands on home page (`/`)
 2. Sees single "Text Chunking" card
-3. Clicks "Start Chunking" → navigates to `/chunking-v2`
+3. Clicks "Start Chunking" → navigates to `/chunking`
 4. Uses the improved v2 editor with:
    - Sentence preservation
    - Hard character limit enforcement
@@ -99,7 +99,7 @@ These can be accessed directly via URL if needed for debugging or specialized us
 ## Testing Checklist
 
 - [ ] Navigate to `/` and verify only one card is shown
-- [ ] Click "Start Chunking" and verify it goes to `/chunking-v2`
+- [ ] Click "Start Chunking" and verify it goes to `/chunking`
 - [ ] Verify header shows "Text Chunking ✂️" with back link
 - [ ] Test old `/chunking` URL redirects to v2
 - [ ] Verify `/refactoring` still works when accessed directly

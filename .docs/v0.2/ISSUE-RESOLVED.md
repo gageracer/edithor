@@ -210,7 +210,7 @@ Story 3:
 ## ✅ Action Items
 
 ### Immediate Fix:
-1. Open the editor at `http://localhost:5173/chunking-v2`
+1. Open the editor at `http://localhost:5173/chunking`
 2. Update configuration to:
    - **Start Marker:** `### Voice Script Segments`
    - **End Marker:** `### Storyboard Images`

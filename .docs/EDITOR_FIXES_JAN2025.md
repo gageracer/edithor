@@ -120,7 +120,7 @@ async processChunking() {
 
 - [x] Build succeeds (`bun run build`)
 - [x] No new TypeScript errors
-- [ ] Open `/chunking-v2` fresh (no history)
+- [ ] Open `/chunking` fresh (no history)
 - [ ] Paste content into editor
 - [ ] Click "Process Chunks" → should work immediately
 - [ ] Verify text wraps (no horizontal scroll)
@@ -134,7 +134,7 @@ async processChunking() {
 
 ### BEFORE (Broken)
 ```
-1. Open /chunking-v2
+1. Open /chunking
 2. Paste text into editor
 3. Click "Process Chunks"
 4. ❌ ERROR: patterns not initialized
@@ -145,7 +145,7 @@ async processChunking() {
 
 ### AFTER (Fixed)
 ```
-1. Open /chunking-v2
+1. Open /chunking
 2. Paste text into editor
 3. Click "Process Chunks"
 4. ✅ Works immediately

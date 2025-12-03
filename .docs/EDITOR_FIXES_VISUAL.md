@@ -34,7 +34,7 @@
 
 **Navigation Flow:**
 ```
-/chunking-v2 (editor)
+/chunking (editor)
     │
     ├─→ 📚 History ─→ /history (history view)
     │
@@ -85,7 +85,7 @@ EditorView.lineWrapping  // ← Single line fix!
 ### BEFORE (Broken Flow)
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  Step 1: User opens /chunking-v2                            │
+│  Step 1: User opens /chunking                            │
 │          (Fresh start, no history selected)                 │
 └─────────────────────────────────────────────────────────────┘
                          ↓
@@ -113,7 +113,7 @@ EditorView.lineWrapping  // ← Single line fix!
 ### AFTER (Fixed Flow)
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  Step 1: User opens /chunking-v2                            │
+│  Step 1: User opens /chunking                            │
 │          ✅ constructor() initializes patterns!             │
 └─────────────────────────────────────────────────────────────┘
                          ↓
@@ -246,7 +246,7 @@ Benefit: 2 fewer steps, no confusion
 ### Scenario 1: Fresh Start (Fix 3)
 ```
 1. Clear browser data
-2. Open /chunking-v2
+2. Open /chunking
 3. Paste example/writing1.md
 4. Click "Process Chunks"
 5. ✅ Should work immediately (no error)
@@ -254,7 +254,7 @@ Benefit: 2 fewer steps, no confusion
 
 ### Scenario 2: Word Wrap (Fix 2)
 ```
-1. Open /chunking-v2
+1. Open /chunking
 2. Paste line with 200+ characters
 3. Observe: Line wraps, no horizontal scroll
 4. Try resizing window
@@ -263,7 +263,7 @@ Benefit: 2 fewer steps, no confusion
 
 ### Scenario 3: Navigation (Fix 1)
 ```
-1. Open /chunking-v2
+1. Open /chunking
 2. Click "📚 History"
 3. ✅ Should navigate to /history
 4. Click back
