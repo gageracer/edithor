@@ -7,6 +7,7 @@
 	import { toast } from "svelte-sonner";
 	import { goto } from '$app/navigation';
 	import * as AlertDialog from "$lib/components/ui/alert-dialog";
+	import { resolve } from '$app/paths';
 
 	let states = $state<ChunkingState[]>([]);
 	let isLoading = $state(true);
@@ -122,7 +123,7 @@
 	function loadState(state: ChunkingState) {
 		// Store the state in sessionStorage to pass to main page
 		sessionStorage.setItem('loadedState', JSON.stringify(state));
-		goto('/');
+		goto(resolve('/chunking'));
 	}
 </script>
 
@@ -136,7 +137,7 @@
 					All your saved chunking configurations and text, stored locally in your browser
 				</p>
 			</div>
-			<Button onclick={() => goto('/')} variant="outline">
+			<Button onclick={() => goto(resolve('/chunking'))} variant="outline">
 				← Back to Editor
 			</Button>
 		</div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import RefactoringMode from '$lib/components/RefactoringMode.svelte';
+	import { resolve } from '$app/paths';
 </script>
 
 <svelte:head>
@@ -22,7 +23,7 @@
 
 		<!-- Back to home link -->
 		<div>
-			<a href="/" class="text-sm text-muted-foreground hover:text-foreground transition-colors">
+			<a href={resolve('/')} class="text-sm text-muted-foreground hover:text-foreground transition-colors">
 				← Back to Home
 			</a>
 		</div>

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "$lib/components/ui/card";
+	import { resolve } from '$app/paths';
+	import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '$lib/components/ui/card';
 	import { Label } from "$lib/components/ui/label";
 	import { Input } from "$lib/components/ui/input";
 	import { Button } from "$lib/components/ui/button";
@@ -466,7 +467,7 @@
 						Load Latest State
 					{/if}
 				</Button>
-				<a href="/history" class="inline-flex">
+				<a href={resolve('/history')} class="inline-flex">
 					<Button variant="outline" size="sm">
 						View History
 					</Button>

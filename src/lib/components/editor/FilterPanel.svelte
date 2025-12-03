@@ -135,7 +135,8 @@
 
 		<!-- Process Button -->
 		<Button
-			class="w-full"
+			size="lg"
+			class="w-full bg-blue-600 text-white hover:bg-blue-700 font-semibold"
 			onclick={handleProcess}
 			disabled={ctx.isProcessing || !ctx.currentText}
 			data-testid="process-button"
