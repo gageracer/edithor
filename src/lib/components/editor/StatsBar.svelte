@@ -13,7 +13,7 @@
 	}
 </script>
 
-<div class="border rounded-lg bg-card px-3 py-2" data-testid="stats-bar">
+<div class="border border-border rounded-lg bg-card px-3 py-2" data-testid="stats-bar">
 	<div class="flex items-center gap-2 flex-wrap justify-center">
 		<Badge variant="secondary" class="text-xs px-2 py-0.5" data-testid="stat-words">
 			<span class="font-semibold mr-1" data-testid="stat-words-value">{formatNumber(stats.totalWords)}</span>

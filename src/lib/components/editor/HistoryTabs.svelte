@@ -20,7 +20,7 @@
 	}
 </script>
 
-<div class="border rounded-lg bg-card" data-testid="history-tabs">
+<div class="border border-border rounded-lg bg-card" data-testid="history-tabs">
 	<ScrollArea class="h-14" orientation="horizontal">
 		<div class="flex gap-2 px-3 py-2 items-center">
 			<span class="text-xs text-muted-foreground font-medium shrink-0 mr-1">History:</span>

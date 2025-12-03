@@ -13,9 +13,9 @@
 	const isReadonly = $derived(ctx.viewMode === 'result');
 </script>
 
-<div class="flex flex-col h-full border rounded-lg bg-card" data-testid="editor-panel">
+<div class="flex flex-col h-full border border-border rounded-lg bg-card" data-testid="editor-panel">
 	<!-- Header -->
-	<div class="flex items-center justify-between border-b px-4 py-3 flex-shrink-0" data-testid="editor-header">
+	<div class="flex items-center justify-between border-b border-border px-4 py-3 flex-shrink-0" data-testid="editor-header">
 		<h3 class="font-semibold text-lg" data-testid="editor-title">
 			{ctx.viewMode === 'original' ? 'Original Text' : 'Result'}
 		</h3>

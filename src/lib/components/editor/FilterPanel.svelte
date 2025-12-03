@@ -13,7 +13,7 @@
 	}
 </script>
 
-<div class="flex flex-col h-full border rounded-lg bg-card" data-testid="filter-panel">
+<div class="flex flex-col h-full border border-border rounded-lg bg-card" data-testid="filter-panel">
 	<CardHeader class="flex-shrink-0">
 		<CardTitle>Filter Settings</CardTitle>
 	</CardHeader>

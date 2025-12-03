@@ -2,48 +2,48 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { Toaster } from '$lib/components/ui/sonner';
-	import { onNavigate, beforeNavigate } from '$app/navigation';
+	import { onNavigate, beforeNavigate, afterNavigate } from '$app/navigation';
 	import { Spinner } from '$lib/components/ui/spinner';
 
 	let { children } = $props();
-	let isNavigating = $state(false);
+	let showLoading = $state(false);
 
-	beforeNavigate(() => {
-		isNavigating = true;
+	beforeNavigate((navigation) => {
+		// Show loading when navigating to history page
+		if (navigation.to?.route?.id === '/history') {
+			showLoading = true;
+		}
+	});
+
+	afterNavigate(() => {
+		// Hide loading after navigation completes
+		showLoading = false;
 	});
 
 	onNavigate((navigation) => {
-		if (!document.startViewTransition) {
-			isNavigating = false;
-			return;
-		}
+		if (!document.startViewTransition) return;
 
 		return new Promise((resolve) => {
 			document.startViewTransition(async () => {
 				resolve();
 				await navigation.complete;
-				isNavigating = false;
 			});
 		});
 	});
 </script>
 
-<!-- Navigation Loading Indicator -->
-{#if isNavigating}
+<!-- Loading Indicator for History Page -->
+{#if showLoading}
 	<!-- Backdrop -->
 	<div class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200"></div>
 
-	<!-- Top progress bar -->
-	<div class="fixed top-0 left-0 right-0 z-50 h-1 bg-primary/20">
-		<div class="h-full bg-primary animate-pulse"></div>
-	</div>
-
 	<!-- Loading card -->
-	<div class="fixed top-4 right-4 z-50 bg-card/95 backdrop-blur-md border rounded-lg shadow-2xl p-3 flex items-center gap-2 animate-in fade-in slide-in-from-top-2 duration-200">
-		<Spinner class="w-4 h-4" />
-		<span class="text-sm font-medium">Loading...</span>
+	<div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-card/95 backdrop-blur-md border border-border rounded-lg shadow-2xl p-6 flex flex-col items-center gap-3 animate-in fade-in zoom-in-95 duration-200">
+		<Spinner class="w-8 h-8" />
+		<span class="text-sm font-medium">Loading History...</span>
 	</div>
 {/if}
+
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
