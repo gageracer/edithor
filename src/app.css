@@ -54,3 +54,71 @@
 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 	}
 }
+
+/* View Transitions */
+@supports (view-transition-name: none) {
+	::view-transition-group(root) {
+		animation-duration: 0.3s;
+		animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	::view-transition-old(root) {
+		animation-name: fade-out, slide-to-left;
+	}
+
+	::view-transition-new(root) {
+		animation-name: fade-in, slide-from-right;
+	}
+
+	@keyframes fade-out {
+		to {
+			opacity: 0;
+		}
+	}
+
+	@keyframes fade-in {
+		from {
+			opacity: 0;
+		}
+	}
+
+	@keyframes slide-to-left {
+		to {
+			transform: translateX(-20px);
+		}
+	}
+
+	@keyframes slide-from-right {
+		from {
+			transform: translateX(20px);
+		}
+	}
+}
+
+/* Smooth scrolling */
+@layer utilities {
+	.smooth-scroll {
+		scroll-behavior: smooth;
+	}
+}
+
+/* Custom animations */
+@keyframes shimmer {
+	0% {
+		background-position: -1000px 0;
+	}
+	100% {
+		background-position: 1000px 0;
+	}
+}
+
+.animate-shimmer {
+	animation: shimmer 2s infinite linear;
+	background: linear-gradient(
+		to right,
+		transparent 0%,
+		rgba(255, 255, 255, 0.1) 50%,
+		transparent 100%
+	);
+	background-size: 1000px 100%;
+}
