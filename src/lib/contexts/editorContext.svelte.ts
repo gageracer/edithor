@@ -285,8 +285,9 @@ export class EditorContext {
 
 		for (const chunk of chunkResult.chunks) {
 			const content = chunk.content.trim();
-			// Remove excessive blank lines within the content (allow max 1 blank line between paragraphs)
-			const cleanContent = content.replace(/\n\n\n+/g, '\n\n').trim();
+			// Remove ALL blank lines within content - replace paragraph breaks with single space
+			// This makes each segment one continuous paragraph for easy double-click selection
+			const cleanContent = content.replace(/\n\n+/g, ' ').replace(/\n/g, ' ').trim();
 			result += `**Segment ${segmentNumber}:** (${cleanContent.length} characters)\n\n`;
 			result += cleanContent;
 			result += '\n\n';

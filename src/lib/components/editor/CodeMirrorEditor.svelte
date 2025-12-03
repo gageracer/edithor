@@ -92,9 +92,15 @@
 	// React to highlight changes
 	$effect(() => {
 		if (view && highlights) {
-			view.dispatch({
-				effects: highlightEffect.of(highlights)
-			});
+			// Validate that highlight positions are within document bounds
+			const docLength = view.state.doc.length;
+			const validHighlights = highlights.filter(h => h.from >= 0 && h.to <= docLength && h.from < h.to);
+
+			if (validHighlights.length > 0) {
+				view.dispatch({
+					effects: highlightEffect.of(validHighlights)
+				});
+			}
 		}
 	});
 
