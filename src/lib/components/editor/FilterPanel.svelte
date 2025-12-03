@@ -88,7 +88,7 @@
 								})}
 							/>
 							<p class="text-xs text-muted-foreground">
-								Use %n for number, %d for character count
+								Use %n for number, %d for character count, %o&#123;...&#125; for optional parts (e.g., %o&#123;**&#125;Segment %n:%o&#123;**&#125;)
 							</p>
 						</div>
 

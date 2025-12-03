@@ -151,7 +151,7 @@ function calculateStats(chunks: Chunk[]): ChunkStats {
 
 /**
  * Splits continuous text that exceeds the limit by forcing character-based splits
- * Used as a fallback when text has no sentence boundaries
+ * HARD LIMIT: Never exceeds maxCharacters, cuts at word boundary or mid-word if necessary
  */
 function forceSplitContinuousText(text: string, maxCharacters: number): string[] {
 	const parts: string[] = [];
@@ -167,6 +167,7 @@ function forceSplitContinuousText(text: string, maxCharacters: number): string[]
 		if (lastSpace > maxCharacters * 0.8) {
 			splitPoint = lastSpace;
 		}
+		// Otherwise, HARD CUT at maxCharacters (mid-word if necessary)
 
 		parts.push(remaining.substring(0, splitPoint).trim());
 		remaining = remaining.substring(splitPoint).trim();
@@ -255,14 +256,17 @@ export function chunkText(text: string, settings: ChunkSettings): ChunkResult {
 				}
 				continue;
 			} else {
-				// Allow the long sentence as its own chunk
-				// Save current chunk if it has content
+				// HARD LIMIT: Never allow chunks over maxCharacters
+				// Force split the long sentence
 				if (currentChunk.trim().length > 0) {
 					chunks.push(createChunk(chunkId++, currentChunk));
 					currentChunk = "";
 				}
-				// Add the long sentence as its own chunk
-				chunks.push(createChunk(chunkId++, trimmedSentence));
+				// Split the long sentence and add as separate chunks
+				const forcedParts = forceSplitContinuousText(trimmedSentence, maxCharacters);
+				for (const part of forcedParts) {
+					chunks.push(createChunk(chunkId++, part));
+				}
 				continue;
 			}
 		}
@@ -290,9 +294,30 @@ export function chunkText(text: string, settings: ChunkSettings): ChunkResult {
 		chunks.push(createChunk(chunkId, currentChunk));
 	}
 
+	// FINAL SAFETY CHECK: Enforce hard limit on ALL chunks
+	// If any chunk exceeds limit, force split it
+	const finalChunks: Chunk[] = [];
+	let finalChunkId = 1;
+
+	for (const chunk of chunks) {
+		if (chunk.characterCount <= maxCharacters) {
+			// Chunk is within limit, keep it
+			finalChunks.push({
+				...chunk,
+				id: finalChunkId++
+			});
+		} else {
+			// Chunk exceeds limit, force split it
+			const parts = forceSplitContinuousText(chunk.content, maxCharacters);
+			for (const part of parts) {
+				finalChunks.push(createChunk(finalChunkId++, part));
+			}
+		}
+	}
+
 	return {
-		chunks,
-		stats: calculateStats(chunks),
+		chunks: finalChunks,
+		stats: calculateStats(finalChunks),
 	};
 }
 

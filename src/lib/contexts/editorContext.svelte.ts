@@ -37,7 +37,7 @@ export class EditorContext {
 			id: 1,
 			startMarker: '### Voice Script Segments',
 			endMarker: '### Storyboard Images',
-			patternTemplate: '**Segment %n:** (%d characters)',
+			patternTemplate: '%o{**}Segment %n:%o{**} (%d characters)',
 			pattern: null,
 			format: 'double-star'
 		}
@@ -232,9 +232,19 @@ export class EditorContext {
 			const currentMatch = segmentMatches[i];
 			const nextMatch = segmentMatches[i + 1];
 
-			// Extract segment content (from after marker to next marker or end)
+			// Extract segment content (from after marker to next marker, separator, or end)
 			const contentStart = currentMatch.index + currentMatch.marker.length;
-			const contentEnd = nextMatch ? nextMatch.index : sectionText.length;
+			let contentEnd = nextMatch ? nextMatch.index : sectionText.length;
+
+			// Find the earliest occurrence of a separator or section header after this segment
+			const remainingText = sectionText.slice(contentStart, contentEnd);
+			const separatorMatch = remainingText.match(/\n\n---\n|^---\n|^###\s/m);
+
+			if (separatorMatch && separatorMatch.index !== undefined) {
+				// Stop at the separator
+				contentEnd = contentStart + separatorMatch.index;
+			}
+
 			const segmentContent = sectionText.slice(contentStart, contentEnd).trim();
 
 			if (segmentContent) {
@@ -269,13 +279,16 @@ export class EditorContext {
 		}
 
 		// Rebuild with sequential numbering
+		// Always use **Segment N:** format in output (with asterisks)
 		let result = preFirstSegmentContent;
 		let segmentNumber = 1;
 
 		for (const chunk of chunkResult.chunks) {
 			const content = chunk.content.trim();
-			result += `**Segment ${segmentNumber}:** (${content.length} characters)\n`;
-			result += content;
+			// Remove excessive blank lines within the content (allow max 1 blank line between paragraphs)
+			const cleanContent = content.replace(/\n\n\n+/g, '\n\n').trim();
+			result += `**Segment ${segmentNumber}:** (${cleanContent.length} characters)\n\n`;
+			result += cleanContent;
 			result += '\n\n';
 			segmentNumber++;
 		}
@@ -364,22 +377,37 @@ export class EditorContext {
 		if (!template || !template.trim()) return null;
 
 		try {
-			let pattern = this.escapeRegex(template);
+			// First, handle %o{...} optional syntax before escaping
+			// Replace %o{content} with a marker, process, then make it optional
+			const optionalMarkers: string[] = [];
+			let processedTemplate = template;
 
-			// Check if this has character count placeholder
+			// Extract all %o{...} blocks
+			const optionalPattern = /%o\{([^}]+)\}/g;
+			let match;
+			let index = 0;
+
+			while ((match = optionalPattern.exec(template)) !== null) {
+				const placeholder = `__OPTIONAL_${index}__`;
+				optionalMarkers.push(match[1]); // Store the content inside %o{}
+				processedTemplate = processedTemplate.replace(match[0], placeholder);
+				index++;
+			}
+
+			let pattern = this.escapeRegex(processedTemplate);
 			const hasCharCount = template.includes('%d');
 
-			// Replace %n with digit matcher and %d with digit matcher
+			// Replace %n and %d placeholders
 			pattern = pattern.replace(/%n/g, '\\d+');
 			pattern = pattern.replace(/%d/g, '\\d+');
 
-			// Check if this is a plain segment pattern (no bold markers)
-			const isPlainSegmentPattern = template.includes('Segment') && !template.includes('**');
-
-			if (isPlainSegmentPattern) {
-				// Use negative lookbehind to avoid matching **Segment when looking for plain Segment
-				pattern = '(?<!\\*\\*)' + pattern;
-			}
+			// Restore optional blocks and make them optional in regex
+			optionalMarkers.forEach((content, idx) => {
+				const placeholder = `__OPTIONAL_${idx}__`;
+				const escapedContent = this.escapeRegex(content);
+				// Make the entire captured content optional with (content)?
+				pattern = pattern.replace(placeholder, `(${escapedContent})?`);
+			});
 
 			// Make character count part optional with flexible spacing
 			if (hasCharCount) {
