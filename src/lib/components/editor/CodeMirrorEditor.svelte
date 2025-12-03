@@ -54,7 +54,8 @@
 			basicSetup,
 			markdown(),
 			highlightField,
-			EditorView.editable.of(!readonly)
+			EditorView.editable.of(!readonly),
+			EditorView.lineWrapping
 		];
 
 		if (showLineNumbers) {

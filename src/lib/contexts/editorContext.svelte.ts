@@ -49,6 +49,14 @@ export class EditorContext {
 	currentHistoryId = $state<number | null>(null);
 	isProcessing = $state<boolean>(false);
 
+	constructor() {
+		// Initialize patterns for marker pairs
+		this.markerPairs = this.markerPairs.map(mp => ({
+			...mp,
+			pattern: this.createPattern(mp.patternTemplate)
+		}));
+	}
+
 	// Computed values (derived state)
 	stats = $derived.by((): EditorStats => {
 		const text = this.viewMode === 'original' ? this.currentText : this.resultText;
@@ -115,6 +123,12 @@ export class EditorContext {
 	async processChunking() {
 		this.isProcessing = true;
 		try {
+			// Ensure patterns are initialized
+			this.markerPairs = this.markerPairs.map(mp => ({
+				...mp,
+				pattern: mp.pattern || this.createPattern(mp.patternTemplate)
+			}));
+
 			// Process document preserving structure
 			this.resultText = this.processDocumentWithStructure(this.currentText);
 			await this.saveToHistory('Processed');

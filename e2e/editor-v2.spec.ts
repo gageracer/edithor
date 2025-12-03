@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Editor v0.2', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/chunking-v2');
+		await page.goto('/chunking');
 	});
 
 	test('should load the editor layout', async ({ page }) => {

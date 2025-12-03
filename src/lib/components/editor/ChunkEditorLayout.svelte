@@ -14,6 +14,21 @@
 </script>
 
 <div class="flex flex-col h-screen bg-background">
+	<!-- Header -->
+	<div class="border-b bg-card px-6 py-3">
+		<div class="flex items-center justify-between">
+			<h1 class="text-xl font-semibold">Text Chunking ✂️</h1>
+			<div class="flex items-center gap-4">
+				<a href="/history" class="text-sm text-muted-foreground hover:text-foreground transition-colors">
+					📚 History
+				</a>
+				<a href="/" class="text-sm text-muted-foreground hover:text-foreground transition-colors">
+					← Back to Home
+				</a>
+			</div>
+		</div>
+	</div>
+
 	<!-- Stats Bar -->
 	<StatsBar stats={ctx.stats} />
 

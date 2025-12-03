@@ -3,7 +3,7 @@ import { readFileSync } from 'fs';
 
 test.describe('Sentence Integrity - No Butchered Sentences', () => {
 	test.beforeEach(async ({ page }) => {
-		await page.goto('/chunking-v2');
+		await page.goto('/chunking');
 	});
 
 	test('should not split sentences mid-way when processing writing1.md content', async ({ page }) => {
